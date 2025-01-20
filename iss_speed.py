@@ -3,6 +3,12 @@ from datetime import datetime
 import cv2
 import math
 
+# TODO LIST:
+# Planning other ways - google coral
+# Other algorithms on OpenCV
+# Prewrite the Photos camera module - Billy 
+
+
 
 def get_time(image):
     with open(image, 'rb') as image_file:
@@ -10,7 +16,7 @@ def get_time(image):
         time_str = img.get("datetime_original")
         time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S') # Getting the date time of image
     return time
-    
+
     
 def get_time_difference(image_1, image_2):
     time_1 = get_time(image_1)
