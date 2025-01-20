@@ -8,7 +8,7 @@ def get_time(image):
     with open(image, 'rb') as image_file:
         img = Image(image_file)
         time_str = img.get("datetime_original")
-        time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S')
+        time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S') # Getting the date time of image
     return time
     
     
@@ -26,7 +26,7 @@ def convert_to_cv(image_1, image_2):
 
 
 def calculate_features(image_1, image_2, feature_number):
-    orb = cv2.ORB_create(nfeatures = feature_number)
+    orb = cv2.ORB_create(nfeatures = feature_number) # ORB algorithm to find points usin OpenCV library
     keypoints_1, descriptors_1 = orb.detectAndCompute(image_1_cv, None)
     keypoints_2, descriptors_2 = orb.detectAndCompute(image_2_cv, None)
     return keypoints_1, keypoints_2, descriptors_1, descriptors_2
@@ -75,6 +75,19 @@ def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
     distance = feature_distance * GSD / 100000
     speed = distance / time_difference
     return speed
+
+def find_matching_coordinates(keypoints_1, keypoints_2, matches):
+    coordinates_1 = []
+    coordinates_2 = []
+    for match in matches:
+        image_1_idx = match.queryIdx
+        image_2_idx = match.trainIdx
+        (x1, y1) = keypoints_1[image_1_idx].pt
+        (x2,y2) = keypoints_2[image_2_idx].pt
+        coordinates_1.append((x1,y1))
+        coordinates_2.append((x2,y2))
+    return coordinates_1, coordinates_2
+        
 
 
 image_1 = 'photo_07464.jpg'
