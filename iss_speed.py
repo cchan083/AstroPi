@@ -26,20 +26,25 @@ def get_time_difference(image_1, image_2):
 
 
 def convert_to_cv(image_1, image_2):
-    image_1_cv = cv2.imread(image_1, 0)
-    image_2_cv = cv2.imread(image_2, 0) # Making images the a CV2 object
+    image_1_cv = cv2.imread(image_1)
+    image_2_cv = cv2.imread(image_2) # Making images the a CV2 object
+    image_1_cv = cv2.cvtColor(image_1_cv, cv2.COLOR_BGR2GRAY)
+    image_2_cv = cv2.cvtColor(image_2_cv, cv2.COLOR_BGR2GRAY)
     return image_1_cv, image_2_cv
 
 
 def calculate_features(image_1, image_2, feature_number):
-    orb = cv2.ORB_create(nfeatures = feature_number) # ORB algorithm to find points usin OpenCV library
-    keypoints_1, descriptors_1 = orb.detectAndCompute(image_1_cv, None)
-    keypoints_2, descriptors_2 = orb.detectAndCompute(image_2_cv, None)
+    
+    # ORB algorithm to find points usin OpenCV library
+    
+    sift = cv2.SIFT_create(nfeatures = feature_number)
+    keypoints_1, descriptors_1 = sift.detectAndCompute(image_1_cv, None)
+    keypoints_2, descriptors_2 = sift.detectAndCompute(image_2_cv, None)
     return keypoints_1, keypoints_2, descriptors_1, descriptors_2
 
 
 def calculate_matches(descriptors_1, descriptors_2):
-    brute_force = cv2.BFMatcher(cv2.NORM_HAMMING, crossCheck=True) #Brute force matching
+    brute_force = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True) #Brute force matching
     matches = brute_force.match(descriptors_1, descriptors_2)
     matches = sorted(matches, key=lambda x: x.distance)
     return matches 
@@ -86,13 +91,13 @@ def find_matching_coordinates(keypoints_1, keypoints_2, matches):
         
 
 
-image_1 = 'photo_1753.jpg'
-image_2 = 'photo_1754.jpg'
+image_1 = 'photo_06312.jpg'
+image_2 = 'photo_06313.jpg'
 
 
 time_difference = get_time_difference(image_1, image_2) #get time difference between images
 image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) #create opencfv images objects
-keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 1500) #get keypoints and descriptors
+keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 2000) #get keypoints and descriptors
 matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
 #display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
 coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
