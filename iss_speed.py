@@ -80,15 +80,15 @@ def find_matching_coordinates(keypoints_1, keypoints_2, matches):
         
 
 
-image_1 = 'photo_05515.jpg'
-image_2 = 'photo_05516.jpg'
+image_1 = 'photo_1753.jpg'
+image_2 = 'photo_1754.jpg'
 
 
 time_difference = get_time_difference(image_1, image_2) #get time difference between images
 image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) #create opencfv images objects
-keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 1000) #get keypoints and descriptors
+keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 1500) #get keypoints and descriptors
 matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
-display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
+#display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
 coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
 average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
 speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
