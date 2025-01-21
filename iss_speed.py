@@ -5,7 +5,7 @@ import math
 
 # TODO LIST:
 # Planning other ways - google coral
-# Other algorithms on OpenCV
+
 # Prewrite the Photos camera module - Billy 
 
 
@@ -38,7 +38,8 @@ def convert_to_cv(image_1, image_2):
 
 def calculate_features(image_1, image_2, feature_number):
     
-    # ORB algorithm to find points usin OpenCV library
+    # sift algorithm to find points usin OpenCV library
+    
     
     sift = cv2.SIFT_create(nfeatures = feature_number)
     keypoints_1, descriptors_1 = sift.detectAndCompute(image_1_cv, None)
