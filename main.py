@@ -3,10 +3,11 @@ from datetime import datetime
 import cv2
 import math
 
+
 # TODO LIST:
 # Planning other ways - google coral
-
-# Prewrite the Photos camera module - Billy 
+# Prewrite the Photos camera module - Billy
+# Thread Euan
 
 
 
@@ -95,8 +96,8 @@ def find_matching_coordinates(keypoints_1, keypoints_2, matches):
         
 
 
-image_1 = 'photo_07003.jpg'
-image_2 = 'photo_07004.jpg'
+image_1 = 'photos/photo_07003.jpg'
+image_2 = 'photos/photo_07004.jpg'
 
 
 time_difference = get_time_difference(image_1, image_2) #get time difference between images
@@ -107,5 +108,7 @@ matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
 coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
 average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
 speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
-with open('result.txt') as f:
-    f.write(speed)
+
+
+with open('result.txt', 'w') as f:
+    f.write(str(speed))
