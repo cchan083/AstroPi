@@ -7,7 +7,7 @@ import math
 # TODO LIST:
 # Planning other ways - google coral
 # Prewrite the Photos camera module - Billy
-# Thread Euan
+# Thread - Euan
 
 
 
