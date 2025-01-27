@@ -13,21 +13,25 @@ Does the angle of motion (diagonally across the frame) have a impact that needs 
 – If your matched features are clouds, can you compensate for the fact that they may be moving too?
 
 
-Think of a research question to explore:
-Sensors avaliable:
-• A passive infrared sensor (PIR)
+Think of a research question to explore: 
 
-• A colour and luminosity sensor
+Sensors avaliable: 
 
-• A gyroscope, accelerometer, and magnetometer inertial measurement unit (IMU) sensor
+• A passive infrared sensor (PIR) 
 
-• A temperature sensor
+• A colour and luminosity sensor 
 
-• A humidity sensor
+• A gyroscope, accelerometer, and magnetometer inertial measurement unit (IMU) sensor 
 
-• A pressure sensor
+• A temperature sensor 
+
+• A humidity sensor 
+
+• A pressure sensor 
+
 
 ### Helpful links 
+
 https://astro-pi.org/mission-space-lab 
 
 # Test Website
