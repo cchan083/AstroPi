@@ -3,6 +3,8 @@ from datetime import datetime
 import cv2
 import math
 
+# 3 . 4 6 2 2
+
 import threading
 
 # TODO
@@ -10,8 +12,10 @@ import threading
 # Prewrite the Photos camera module - Billy
 # Thread - Euan
 
+
 def camera(): # billy do this or I will find you <3
     pass
+
 
 def get_time(path: str) -> datetime:
     with open(path, 'rb') as image_file:
@@ -66,7 +70,7 @@ def calculate_matches(descriptors_1, descriptors_2):
     return matches 
     
 
-def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
+def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) -> None:
 
     match_img = cv2.drawMatches(
         image_1_cv,
@@ -81,9 +85,9 @@ def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches):
     cv2.waitKey(0) #Drawing the matches 
     cv2.destroyWindow('matches')
 
-def calculate_mean_distance(coordinates_1, coordinates_2):
-
+def calculate_mean_distance(coordinates_1: list, coordinates_2: list) -> float:
     all_distances = 0
+
     merged_coordinates = list(zip(coordinates_1, coordinates_2))
     for coordinate in merged_coordinates:
         x_difference = coordinate[0][0] - coordinate[1][0]
@@ -94,13 +98,13 @@ def calculate_mean_distance(coordinates_1, coordinates_2):
     return all_distances / len(merged_coordinates)
 
 
-def calculate_speed_in_kmps(feature_distance, GSD, time_difference):
-
+def calculate_speed(feature_distance, GSD: int, time_difference) -> float:
     distance = feature_distance * GSD / 100000
-    speed = distance / time_difference 
-    return speed
+    speed = distance / time_difference
 
-def find_matching_coordinates(keypoints_1, keypoints_2, matches):
+    return speed # RESULT FORM : KM / S
+
+def find_matching_coordinates(keypoints_1: list, keypoints_2: list, matches: list) -> tuple:
 
     coordinates_1 = []
     coordinates_2 = []
@@ -118,12 +122,18 @@ def find_matching_coordinates(keypoints_1, keypoints_2, matches):
     return coordinates_1, coordinates_2
 
 
-def main(verbose=False):
+def main(verbose=False, gsd = 12648) -> None:
 
     image_1 = 'photos/photo_07003.jpg'
     image_2 = 'photos/photo_07004.jpg'
 
+    begin = datetime.now()
     time_difference = get_time_delta(image_1, image_2) #get time difference between images
+
+    if verbose:
+        print(time_difference)
+
+        print(f"Time Elapsed: {datetime.now() - begin}")
 
     image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) #create opencfv images objects
     keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 2000) #get keypoints and descriptors
@@ -134,11 +144,13 @@ def main(verbose=False):
 
     coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
     average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
-    speed = calculate_speed_in_kmps(average_feature_distance, 12648, time_difference)
+    speed = calculate_speed(average_feature_distance, gsd, time_difference)
 
     with open('result.txt', 'w') as f:
         f.write(str(speed))
 
 
 if __name__ == "__main__":
-    main(verbose=False)
+    beg = datetime.now()
+    main(verbose=True)
+    print(f"Time Elapsed: {datetime.now() - beg}")
