@@ -5,8 +5,6 @@ import math
 
 # 3 . 4 6 2 2
 
-import threading
-
 # TODO
 # Planning other ways - google coral
 # Prewrite the Photos camera module - Billy
@@ -122,7 +120,7 @@ def find_matching_coordinates(keypoints_1: list, keypoints_2: list, matches: lis
     return coordinates_1, coordinates_2
 
 
-def main(verbose=False, gsd = 12648) -> None:
+def main(verbose: bool = False, gsd: int = 12648) -> None:
 
     image_1 = 'photos/photo_07003.jpg'
     image_2 = 'photos/photo_07004.jpg'
@@ -130,19 +128,18 @@ def main(verbose=False, gsd = 12648) -> None:
     begin = datetime.now()
     time_difference = get_time_delta(image_1, image_2) #get time difference between images
 
-    if verbose:
-        print(time_difference)
+    image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) #create opencv images objects
 
-        print(f"Time Elapsed: {datetime.now() - begin}")
-
-    image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) #create opencfv images objects
-    keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(image_1_cv, image_2_cv, 2000) #get keypoints and descriptors
+    keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(
+        image_1_cv, image_2_cv,
+        2000) #get keypoints and descriptors
     matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
 
     if verbose:
         display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
 
     coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
+
     average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
     speed = calculate_speed(average_feature_distance, gsd, time_difference)
 
@@ -151,6 +148,4 @@ def main(verbose=False, gsd = 12648) -> None:
 
 
 if __name__ == "__main__":
-    beg = datetime.now()
-    main(verbose=True)
-    print(f"Time Elapsed: {datetime.now() - beg}")
+    main(verbose=False)
