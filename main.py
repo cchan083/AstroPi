@@ -5,14 +5,8 @@ import math
 
 # 3 . 4 6 2 2
 
-# TODO
-# Planning other ways - google coral
-# Prewrite the Photos camera module - Billy
-# Thread - Euan
 
 
-def camera(): # billy do this or I will find you <3
-    pass
 
 
 def get_time(path: str) -> datetime:
