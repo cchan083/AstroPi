@@ -138,6 +138,7 @@ def main(verbose: bool = False, gsd: int = 12648) -> None:
     speed = calculate_speed(average_feature_distance, gsd, time_difference)
 
     with open('result.txt', 'w') as f:
+        speed = round(speed,4)
         f.write(str(speed))
 
 
