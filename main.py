@@ -132,8 +132,8 @@ def calculate_mean_distance(coordinates_1: list, coordinates_2: list) -> float:
 def main(verbose:bool=False) -> None:
     take_pictures(1, name='photo_1', x=1920, y=1080)
     take_pictures(1, name='photo_2', x=1920, y=1080)
-    image_1 = 'home/pi/photo_1.jpg' #import the taking photos function from phototaking.py for 2 images
-    image_2 = 'home/pi/photo_2.jpg'
+    image_1 = '/home/pi/photo_1.jpg' #import the taking photos function from phototaking.py for 2 images
+    image_2 = '/home/pi/photo_2.jpg'
 
     # Calculate time elapsed
     delta = time_delta(image_1, image_2)
