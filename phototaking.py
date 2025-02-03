@@ -17,12 +17,12 @@ def set_resolution(x,y): #(2592, 1944 is the max of V1 Module)
 def keep_window_open(x):
     sleep(x)
     
-def take_pictures(num_images, interval, name, x, y): #num_images=x, interval(seconds)=y
+def take_pictures(num_images, name, x, y): #num_images=x, interval(seconds)=y
     set_resolution(x,y)
     home_dir = os.environ['AstroPi']
     cam = Camera()
     cam.start_preview()
-    cam.capture_sequence(f"{home_dir}/Photos/sequence.jpg", num_images=num_images, interval=interval)
+    cam.capture_sequence(f"{home_dir}/Photos/{name}.jpg", num_images=num_images)
     cam.stop_preview()
 
 if __name__ == "__main__":

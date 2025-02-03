@@ -2,7 +2,7 @@ from exif import Image
 from datetime import datetime
 import cv2
 import math
-
+from phototaking import take_pictures
 # 3 . 4 6 2 2
 
 
@@ -115,9 +115,10 @@ def find_matching_coordinates(keypoints_1: list, keypoints_2: list, matches: lis
 
 
 def main(verbose: bool = False, gsd: int = 12648) -> None:
-
-    image_1 = 'photos/photo_07003.jpg' #import the taking photos function from phototaking.py for 2 images
-    image_2 = 'photos/photo_07004.jpg'
+    take_pictures(1, name='photo_1', x=1920, y=1080)
+    take_pictures(1, name='photo_2', x=1920, y=1080)
+    image_1 = 'Photos/photo_1.jpg' #import the taking photos function from phototaking.py for 2 images
+    image_2 = 'Photos/photo_2.jpg'
 
     begin = datetime.now()
     time_difference = get_time_delta(image_1, image_2) #get time difference between images
