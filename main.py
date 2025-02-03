@@ -116,7 +116,7 @@ def find_matching_coordinates(keypoints_1: list, keypoints_2: list, matches: lis
 
 def main(verbose: bool = False, gsd: int = 12648) -> None:
 
-    image_1 = 'photos/photo_07003.jpg'
+    image_1 = 'photos/photo_07003.jpg' #import the taking photos function from phototaking.py for 2 images
     image_2 = 'photos/photo_07004.jpg'
 
     begin = datetime.now()
