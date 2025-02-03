@@ -3,98 +3,95 @@ from datetime import datetime
 import cv2
 import math
 from phototaking import take_pictures
-# 3 . 4 6 2 2
+import threading
+import queue
 
+########################################################################
 
+Q = queue.Queue()
 
+class Worker(threading.Thread):
+    def __init__(self, function, identifier: int, *args, **kwargs) -> None:
+        super().__init__()
+        self.function = function
+        self.identifier = identifier
+        self.args = args
+        self.kwargs = kwargs
+        self.result = None  # Store result directly
 
+    def run(self) -> None:
+        self.result = self.function(*self.args, **self.kwargs)  # Execute function
+        Q.put((self.identifier, self.result))  # Store results in queue
 
-def get_time(path: str) -> datetime:
+########################################################################
+
+def execute_workers(worker_tasks):
+    workers = [Worker(func, i, *args) for i, (func, *args) in enumerate(worker_tasks, 1)]
+
+    for worker in workers:
+        worker.start()  # Start all threads
+
+    for worker in workers:
+        worker.join()  # Wait for all threads
+
+    return {worker.identifier: worker.result for worker in workers}
+
+########################################################################
+###  ================= SECONDARY ORDER FUNCTIONS =================   ###
+########################################################################
+
+def get_time(path: str = None) -> datetime:
     with open(path, 'rb') as image_file:
         img = Image(image_file)
         time_str = img.get("datetime_original")
-        time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S') # Getting the date time of image
+        time = datetime.strptime(time_str, '%Y:%m:%d %H:%M:%S')  # Extract timestamp
 
     return time
 
 
-def get_time_delta(image_path_1: str, image_path_2: str) -> float:
-
-    # Scrape time metadata from the two images
-    time_1 = get_time(path=image_path_1)
-    time_2 = get_time(path=image_path_2)
-
-    time_delta = time_2 - time_1
-    return time_delta.seconds  # Cast time difference to seconds
+def cv_worker(img_path: str) -> cv2:
+    return cv2.cvtColor(cv2.imread(img_path), cv2.COLOR_BGR2GRAY)
 
 
-def convert_to_cv(image_1, image_2):
-
-    # CV image construction
-    image_1_cv = cv2.cvtColor(
-        cv2.imread(image_2), cv2.COLOR_BGR2GRAY)
-    image_2_cv = cv2.cvtColor(
-        cv2.imread(image_1), cv2.COLOR_BGR2GRAY)
-
-    # x, y, width, height = 500, 500, 4000, 4000
-    # image_1_cv = image_1_cv[y:y+height, x:x+width]
-    # image_2_cv = image_2_cv[y:y+height, x:x+width]
-    return image_1_cv, image_2_cv
+def feature_worker(sifter: cv2.SIFT, image: str) -> tuple:
+    keywords, descriptor = sifter.detectAndCompute(image, None)
+    return keywords, descriptor
 
 
-def calculate_features(image_1, image_2, feature_number):
-    
-    # SIFT algorithm to find points using OpenCV library
-    sift = cv2.SIFT_create(nfeatures = feature_number)
+########################################################################
+###   ================= PRIMARY ORDER FUNCTIONS ==================   ###
+########################################################################
 
-    # Keypoint array construction
-    keypoints_1, descriptors_1  =  sift.detectAndCompute(image_1, None)
-    keypoints_2, descriptors_2  =  sift.detectAndCompute(image_2, None)
 
-    return keypoints_1, keypoints_2, descriptors_1, descriptors_2
+def time_delta(img_1: str, img_2: str) -> float:
+    results = execute_workers([
+        (get_time, img_1),
+        (get_time, img_2)])
+    return (results[2] - results[1]) . total_seconds()  # Cast delta to seconds
+
+
+def convert_to_cv(image_1: str, image_2: str) -> cv2:
+    results = execute_workers([
+        (cv_worker, image_1),
+        (cv_worker, image_2)])
+    return results[1], results[2]  # Return grayscale images
+
+
+def calculate_features(image_1: cv2, image_2: cv2, feature_number: int = 2000) -> tuple:
+    sift = cv2.SIFT_create(nfeatures=feature_number)
+    results = execute_workers([
+        (feature_worker, sift, image_1),
+        (feature_worker, sift, image_2)])
+    return *results[1], *results[2]
 
 
 def calculate_matches(descriptors_1, descriptors_2):
-
     brute_force = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True) #Brute force matching
     matches = brute_force.match(descriptors_1, descriptors_2)
     matches = sorted(matches, key=lambda x: x.distance)
-    return matches 
-    
 
-def display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) -> None:
+    return matches
 
-    match_img = cv2.drawMatches(
-        image_1_cv,
-        keypoints_1,
-        image_2_cv,
-        keypoints_2,
-        matches[:100],
-    None)
-
-    resize = cv2.resize(match_img, (1600,600), interpolation = cv2.INTER_AREA)
-    cv2.imshow('matches', resize)
-    cv2.waitKey(0) #Drawing the matches 
-    cv2.destroyWindow('matches')
-
-def calculate_mean_distance(coordinates_1: list, coordinates_2: list) -> float:
-    all_distances = 0
-
-    merged_coordinates = list(zip(coordinates_1, coordinates_2))
-    for coordinate in merged_coordinates:
-        x_difference = coordinate[0][0] - coordinate[1][0]
-        y_difference = coordinate[0][1] - coordinate[1][1]
-        distance = math.hypot(x_difference, y_difference) # Pythagoras for the distance 
-        all_distances = all_distances + distance
-
-    return all_distances / len(merged_coordinates)
-
-
-def calculate_speed(feature_distance, GSD: int, time_difference) -> float:
-    distance = feature_distance * GSD / 100000
-    speed = distance / time_difference
-
-    return speed # RESULT FORM : KM / S
 
 def find_matching_coordinates(keypoints_1: list, keypoints_2: list, matches: list) -> tuple:
 
@@ -114,34 +111,49 @@ def find_matching_coordinates(keypoints_1: list, keypoints_2: list, matches: lis
     return coordinates_1, coordinates_2
 
 
-def main(verbose: bool = False, gsd: int = 12648) -> None:
+def calculate_mean_distance(coordinates_1: list, coordinates_2: list) -> float:
+    all_distances = 0
+
+    merged_coordinates = list(zip(coordinates_1, coordinates_2))
+    for coordinate in merged_coordinates:
+        x_difference = coordinate[0][0] - coordinate[1][0]
+        y_difference = coordinate[0][1] - coordinate[1][1]
+        distance = math.hypot(x_difference, y_difference) # Pythagoras for the distance
+        all_distances = all_distances + distance
+
+    return all_distances / len(merged_coordinates)
+
+
+########################################################################
+###   ==================  MAIN ORDER FUNCTION  ===================   ###
+########################################################################
+
+
+def main(verbose:bool=False) -> None:
     take_pictures(1, name='photo_1', x=1920, y=1080)
     take_pictures(1, name='photo_2', x=1920, y=1080)
     image_1 = 'Photos/photo_1.jpg' #import the taking photos function from phototaking.py for 2 images
     image_2 = 'Photos/photo_2.jpg'
 
-    begin = datetime.now()
-    time_difference = get_time_delta(image_1, image_2) #get time difference between images
+    # Calculate time elapsed
+    delta = time_delta(image_1, image_2)
 
-    image_1_cv, image_2_cv = convert_to_cv(image_1, image_2) #create opencv images objects
+    image1, image2 = convert_to_cv(image_1, image_2)
+    keywords1, descriptors1, keywords2, descriptors2 = calculate_features(image1, image2)
 
-    keypoints_1, keypoints_2, descriptors_1, descriptors_2 = calculate_features(
-        image_1_cv, image_2_cv,
-        2000) #get keypoints and descriptors
-    matches = calculate_matches(descriptors_1, descriptors_2) #match descriptors
+    matches = calculate_matches(descriptors1, descriptors2)
+    coord1, coord2 = find_matching_coordinates(keywords1, keywords2, matches)
 
-    if verbose:
-        display_matches(image_1_cv, keypoints_1, image_2_cv, keypoints_2, matches) #display matches
+    average_feature_distance = calculate_mean_distance(coord1, coord2)
 
-    coordinates_1, coordinates_2 = find_matching_coordinates(keypoints_1, keypoints_2, matches)
+    calculate_speed = lambda avg_dist, gsd, td: (avg_dist * gsd / 100000) / td
+    speed = calculate_speed(average_feature_distance, 12648, delta)
 
-    average_feature_distance = calculate_mean_distance(coordinates_1, coordinates_2)
-    speed = calculate_speed(average_feature_distance, gsd, time_difference)
+    with open("result.txt", "w") as results:
+        results.write(f"{speed}")
 
-    with open('result.txt', 'w') as f:
-        speed = round(speed,4)
-        f.write(str(speed))
 
+########################################################################
 
 if __name__ == "__main__":
-    main(verbose=False)
+    main(verbose=True)
