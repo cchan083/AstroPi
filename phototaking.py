@@ -22,7 +22,7 @@ def take_pictures(num_images, name, x, y): #num_images=x, interval(seconds)=y
     home_dir = os.environ['HOME']
     cam = Camera()
     cam.start_preview()
-    cam.capture_sequence(f"{home_dir}/Photos/{name}.jpg", num_images=num_images)
+    cam.capture_sequence(f"{home_dir}/{name}.jpg", num_images=num_images)
     cam.stop_preview()
 
 if __name__ == "__main__":
