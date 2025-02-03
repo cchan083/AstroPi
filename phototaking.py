@@ -19,7 +19,7 @@ def keep_window_open(x):
     
 def take_pictures(num_images, name, x, y): #num_images=x, interval(seconds)=y
     set_resolution(x,y)
-    home_dir = os.environ['AstroPi']
+    home_dir = os.environ['Photo']
     cam = Camera()
     cam.start_preview()
     cam.capture_sequence(f"{home_dir}/Photos/{name}.jpg", num_images=num_images)
