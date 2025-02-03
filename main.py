@@ -6,6 +6,7 @@ from phototaking import take_pictures
 import threading
 import os
 import queue
+import time
 
 ########################################################################
 
@@ -132,6 +133,7 @@ def calculate_mean_distance(coordinates_1: list, coordinates_2: list) -> float:
 
 def main(verbose:bool=False) -> None:
     take_pictures(1, name='photo_1', x=1920, y=1080)
+    time.sleep(4)
     take_pictures(1, name='photo_2', x=1920, y=1080)
     home_dir = os.environ['HOME']
     image_1 = (f"{home_dir}/photo_1.jpg") #import the taking photos function from phototaking.py for 2 images
