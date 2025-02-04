@@ -170,6 +170,7 @@ import cv2
 import math
 from phototaking import take_pictures
 import os
+import time 
 
 def get_time(path: str) -> datetime:
     with open(path, 'rb') as image_file:
@@ -210,23 +211,23 @@ def calculate_mean_distance(coords1, coords2):
     return total / len(coords1)
 
 def calculate_speed(mean_dist, gsd, time_delta):
+    
     distance_km = (mean_dist * gsd) / 100000  # Convert cm to km
     return distance_km / time_delta  # km/s
 
-def main(verbose=False, gsd=12648):
-    take_pictures(1, name='photo_1', x=1920, y=1080)
-    with open("results.txt", "a") as file:
-        file.write(f"{datetime.now()}")
-    take_pictures(1, name='photo_2', x=1920, y=1080)
-    with open("results.txt", "a") as file:
-        file.write(f"{datetime.now()}")
+def main(name_1, name_2, verbose=False, gsd=12648):
+    
+     
+    take_pictures(1, name=name_1, x=1920, y=1080)
+    take_pictures(1, name=name_2, x=1920, y=1080)
+
 
     home_dir = os.environ['HOME']
 
     with open("results.txt", "a") as file:
         file.write(f"{os.listdir()}")
 
-    img1, img2 = f'{home_dir}/photo_1-1.jpg', f'{home_dir}/photo_2-1.jpg'
+    img1, img2 = f'{home_dir}/{name_1}-1.jpg', f'{home_dir}/{name_2}-1.jpg'
 
     delta = get_time_delta(img1, img2)
     img1_cv, img2_cv = convert_to_cv(img1, img2)
@@ -243,7 +244,21 @@ def main(verbose=False, gsd=12648):
     coords1, coords2 = find_matching_coordinates(kp1, kp2, matches)
     avg_dist = calculate_mean_distance(coords1, coords2)
     speed = calculate_speed(avg_dist, gsd, delta)
-
+    
+    
+    return speed
+    
+def average_speed():
+    speed_values = []
+    for i in range(0,9):
+        speed = main((f'photo{i}', f'photo{i+1}'))
+        
+        if 7 < speed < 8:
+            speed_values.append(speed)
+            time.sleep(10)
+        else:
+            continue
+    
     with open('result.txt', 'w') as f:
         f.write(f"{speed:.4f}")
 
