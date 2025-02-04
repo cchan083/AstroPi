@@ -253,7 +253,7 @@ def main(name_1, name_2, verbose=False, gsd=12648):
 def average_speed():
     speed_values = []
     for i in range(0,9):
-        speed = main(name_1=f'photo{i}', name_2=f'photo{i+1}')
+        speed = main(name_1=f'photo{i}', name_2=f'photo{i+1}', verbose=False)
         
         if 7 < speed < 8:
             speed_values.append(speed)
@@ -266,4 +266,4 @@ def average_speed():
         f.write(f"{average_speed:.4f}")
 
 if __name__ == "__main__":
-    main(verbose=False)
+    average_speed()
