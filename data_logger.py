@@ -5,8 +5,8 @@ sense = SenseHat()
 sense.color.gain = 60
 sense.color.integration_cycles = 64
 
-timestamp = datetime.now()
-delay=1
+"""timestamp = datetime.now()
+delay=1"""
 
 
 def get_sense_data():
@@ -45,6 +45,11 @@ def get_sense_data():
     sense_data.append(datetime.now())
     return sense_data
 
+def get_pressure():
+    sense_data = []
+    sense_data.append(sense.get_pressure())
+    return sense_data
+
 while True:
     print(get_sense_data)
     
@@ -68,6 +73,5 @@ def writer():
             # if time difference > delay data written to file
             if time_difference.seconds > delay:
                 data_writer.writerow(data)
-                
                 timestamp = datetime.now()
                 

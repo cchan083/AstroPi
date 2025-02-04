@@ -37,3 +37,21 @@ https://astro-pi.org/mission-space-lab
 # Test Website
 
 https://missions.astro-pi.org/msl/replay-tool
+
+# Ideas for research 
+
+Using the sensors to find if certain types of life could survive on the ISS
+ 
+
+Urban Light Pollution: Track city light spectra changes over time to study energy use patterns.
+
+
+Music or Art from space weather 
+
+
+Micrometeoroid & Debris Detection
+
+Aurora Spectroscopy: Capture RGB data of auroras to analyze their chemical composition and intensity from space.
+
+Atmospheric River Tracking: Correlate pressure drops with storm systems observed via the color sensor to study extreme weather precursors.
+
