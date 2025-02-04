@@ -226,9 +226,6 @@ def main(name_1, name_2, verbose=False, gsd=12648):
 
     home_dir = os.environ['HOME']
 
-    with open("results.txt", "a") as file:
-        file.write(f"{os.listdir()}")
-
     img1, img2 = f'{home_dir}/{name_1}-1.jpg', f'{home_dir}/{name_2}-1.jpg'
 
     delta = get_time_delta(img1, img2)
@@ -257,7 +254,7 @@ def average_speed():
         
         if 7 < speed < 8:
             speed_values.append(speed)
-            time.sleep(1)
+            time.sleep(10)
         else:
             continue
     average_speed = mean(speed_values)
