@@ -2,6 +2,12 @@ from sense_hat import SenseHat
 from datetime import datetime
 
 sense = SenseHat()
+sense.color.gain = 60
+sense.color.integration_cycles = 64
+
+timestamp = datetime.now()
+delay=1
+
 
 def get_sense_data():
     sense_data = []
@@ -56,4 +62,12 @@ def writer():
                           'datetime'])
         while True:
             data = get_sense_data()
-            data_writer.write_row(data)
+            time_difference = data[-1] - timestamp 
+            # difference between time
+            
+            # if time difference > delay data written to file
+            if time_difference.seconds > delay:
+                data_writer.writerow(data)
+                
+                timestamp = datetime.now()
+                
