@@ -171,6 +171,8 @@ import math
 from phototaking import take_pictures
 import os
 import time 
+from statistics import mean
+
 
 def get_time(path: str) -> datetime:
     with open(path, 'rb') as image_file:
@@ -251,16 +253,17 @@ def main(name_1, name_2, verbose=False, gsd=12648):
 def average_speed():
     speed_values = []
     for i in range(0,9):
-        speed = main((f'photo{i}', f'photo{i+1}'))
+        speed = main(name_1=f'photo{i}', name_2=f'photo{i+1}')
         
         if 7 < speed < 8:
             speed_values.append(speed)
-            time.sleep(10)
+            time.sleep(1)
         else:
             continue
+    average_speed = mean(speed_values)
     
     with open('result.txt', 'w') as f:
-        f.write(f"{speed:.4f}")
+        f.write(f"{average_speed:.4f}")
 
 if __name__ == "__main__":
     main(verbose=False)
