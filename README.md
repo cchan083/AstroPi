@@ -55,3 +55,4 @@ Aurora Spectroscopy: Capture RGB data of auroras to analyze their chemical compo
 
 Atmospheric River Tracking: Correlate pressure drops with storm systems observed via the color sensor to study extreme weather precursors.
 
+Loom weaving based on atmospheric readings

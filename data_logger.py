@@ -49,9 +49,6 @@ def get_pressure():
     sense_data = []
     sense_data.append(sense.get_pressure())
     return sense_data
-
-while True:
-    print(get_sense_data)
     
 
 def writer():
