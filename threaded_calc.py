@@ -7,6 +7,7 @@ import threading
 import os
 import queue
 import time
+from statistics import mean
 
 ########################################################################
 
@@ -155,11 +156,25 @@ def main(verbose:bool=False) -> None:
     calculate_speed = lambda avg_dist, gsd, td: (avg_dist * gsd / 100000) / td
     speed = calculate_speed(average_feature_distance, 12648, delta)
 
-    with open("result.txt", "w") as results:
-        results.write(f"{speed}")
+    return speed
+    
+    
+def average_speed():
+    speed_values = []
+    for i in range(0, 9):
+        speed = main(name_1=f'photo{i}', name_2=f'photo{i + 1}', verbose=False)
 
+        if 7 < speed < 8:
+            speed_values.append(speed)
+            time.sleep(10)
+        else:
+            continue
+    average_speed = mean(speed_values)
+
+    with open('result.txt', 'w') as f:
+        f.write(f"{average_speed:.4f}")
 
 ########################################################################
 
 if __name__ == "__main__":
-    main(verbose=True)
+    average_speed()

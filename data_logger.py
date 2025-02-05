@@ -45,13 +45,16 @@ def get_sense_data():
     sense_data.append(datetime.now())
     return sense_data
 
-def get_pressure():
+def get_humidity_temperature_pressure():
     sense_data = []
     sense_data.append(sense.get_pressure())
+    sense_data.append(sense.get_temperature())
+    sense_data.append(sense.get_humidity())
     return sense_data
     
+    
 
-def writer():
+"""def writer(delay):
     data = []
     with open('data.csv', 'w', buffering=1, newline='') as f:
         data_writer = writer(f)
@@ -71,4 +74,4 @@ def writer():
             if time_difference.seconds > delay:
                 data_writer.writerow(data)
                 timestamp = datetime.now()
-                
+                """
