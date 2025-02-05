@@ -17,19 +17,18 @@ if __name__ == '__main__':
         print(e)
         avg_unthreaded()
 
+    with open("results.csv", "w") as f:
+        f.write(','.join(['temp', 'pres', 'hum',
+                          'red', 'green', 'blue', 'clear',
+                          'yaw', 'pitch', 'roll',
+                          'mag_x', 'mag_y', 'mag_z',
+                          'acc_x', 'acc_y', 'acc_z',
+                          'gyro_x', 'gyro_y', 'gyro_z',
+                          'datetime']))
 
     while dt.now() < begin + timedelta(minutes=3):
         data = log_data()
         strung = stringify(data)
-
-        with open("results.csv", "w") as f:
-            f.write(','.join(['temp', 'pres', 'hum',
-                              'red', 'green', 'blue', 'clear',
-                              'yaw', 'pitch', 'roll',
-                              'mag_x', 'mag_y', 'mag_z',
-                              'acc_x', 'acc_y', 'acc_z',
-                              'gyro_x', 'gyro_y', 'gyro_z',
-                              'datetime']))
 
         with open("results.csv", "a") as f:
             f.write('\n' + ','.join(strung))
