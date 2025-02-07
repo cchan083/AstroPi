@@ -51,7 +51,7 @@ def get_humidity_temperature_pressure():
     sense_data.append(sense.get_temperature())
     sense_data.append(sense.get_humidity())
     return sense_data
-    
+
     
 
 """def writer(delay):
@@ -67,9 +67,9 @@ def get_humidity_temperature_pressure():
                           'datetime'])
         while True:
             data = get_sense_data()
-            time_difference = data[-1] - timestamp 
+            time_difference = data[-1] - timestamp
             # difference between time
-            
+
             # if time difference > delay data written to file
             if time_difference.seconds > delay:
                 data_writer.writerow(data)

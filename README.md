@@ -38,6 +38,8 @@ https://astro-pi.org/mission-space-lab
 
 https://missions.astro-pi.org/msl/replay-tool
 
+https://www.esa.int/Education/AstroPI/Astro_PI_Sense_HAT_emulator
+
 # Ideas for research 
 
 Using the sensors to find if certain types of life could survive on the ISS

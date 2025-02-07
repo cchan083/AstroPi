@@ -6,6 +6,9 @@ from data_logger import get_sense_data as log_data
 from datetime import datetime as dt
 from datetime import timedelta
 
+import numpy as np
+from matplotlib import pyplot as plt
+
 import time
 
 begin = dt.now()
@@ -30,7 +33,8 @@ if __name__ == '__main__':
     with open('condition_data.csv', 'a') as f:
         f.write(','.join(['pressure', 'temperature', 'humidity']))
 
-    while dt.now() < begin + timedelta(minutes=3):
+    new_time = dt.now() + timedelta(minutes=3)
+    while dt.now() < new_time:
         data = log_data()
         strung = stringify(data)
         condition_data = temp_data()
@@ -45,3 +49,13 @@ if __name__ == '__main__':
     
 
         time.sleep(1)
+
+    with open("results.csv", "r") as f:
+        content = np.rot90([i.strip().split(",") for i in f.readlines()][1:])
+
+    for axis in content:
+        Y = axis
+        X = np.arange(1, len(axis))
+        plt.plot(X,Y)
+
+    plt.savefig("plot.png")
