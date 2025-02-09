@@ -1,4 +1,7 @@
-import matplotlib as plt
+import matplotlib
+matplotlib.use('Agg')
+
+import matplotlib.pyplot as plt
 import pandas as pd
 
 
@@ -19,4 +22,5 @@ def plot_line(data_name, feature, title, xlabel, ylabel, file_name):
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
+    ax.xticks(fontsize=5, rotation=45)
     plt.savefig(file_name)

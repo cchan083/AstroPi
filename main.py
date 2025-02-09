@@ -18,7 +18,8 @@ stringify = lambda x : [str(i) for i in x]
 
 if __name__ == '__main__':
     try:
-        avg_threaded(verbose=False)
+        #avg_threaded(verbose=False)
+        avg_unthreaded()
     except RuntimeError as e:
         print(e)
         avg_unthreaded()
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     with open('condition_data.csv', 'a') as f:
         f.write(','.join(['pressure', 'temperature', 'humidity', 'datetime']))
 
-    new_time = dt.now() + timedelta(minutes=3)
+    new_time = dt.now() + timedelta(minutes=8)
     while dt.now() < new_time:
         data = log_data()
         strung = stringify(data)
@@ -51,12 +52,12 @@ if __name__ == '__main__':
     
     
 
-        time.sleep(1)
+        time.sleep(60)
         
 
 
-    plot_line('condition_data.csv', 'temperature', 'temperature change over time', 'time', 'temperature in celcius', 'plot.png')
-"""
+   # plot_line('condition_data.csv', 'temperature', 'temperature change over time', 'time', 'temperature in celcius', 'plot.png')
+
     with open("results.csv", "r") as f:
         content = np.rot90([i.strip().split(",") for i in f.readlines()][1:])
 
@@ -65,5 +66,5 @@ if __name__ == '__main__':
         X = np.arange(1, len(axis))
         plt.plot(X,Y)
 
-    plt.savefig("plot.png")"""
+    plt.savefig("plot.png")
     
