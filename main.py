@@ -52,19 +52,10 @@ if __name__ == '__main__':
     
     
 
-        time.sleep(60)
+        time.sleep(30)
         
 
 
-   # plot_line('condition_data.csv', 'temperature', 'temperature change over time', 'time', 'temperature in celcius', 'plot.png')
+    plot_line('condition_data.csv', 'temperature', 'temperature change over time', 'time', 'temperature in celcius', 'plot.png')
 
-    with open("results.csv", "r") as f:
-        content = np.rot90([i.strip().split(",") for i in f.readlines()][1:])
 
-    for axis in content:
-        Y = axis
-        X = np.arange(1, len(axis))
-        plt.plot(X,Y)
-
-    plt.savefig("plot.png")
-    
