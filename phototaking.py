@@ -1,7 +1,6 @@
 from exif import Image
 from datetime import datetime
-import cv2
-import math
+
 from picamzero import Camera #Make sure to instead sudo and python3-picamzero
 from time import sleep
 import os
