@@ -22,5 +22,5 @@ def plot_line(data_name, feature, title, xlabel, ylabel, file_name):
     ax.set_title(title)
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.xticks(fontsize=5, rotation=45)
+    ax.tick_params(axis='x', labelsize=5)
     plt.savefig(file_name)
