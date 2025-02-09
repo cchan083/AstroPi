@@ -1,14 +1,16 @@
 from threaded_calc import main as avg_threaded
+
 from unthreaded_calc import average_speed as avg_unthreaded
+
 from data_logger import get_humidity_temperature_pressure as temp_data
 from data_logger import get_sense_data as log_data
 
+from plotter import plot_line
+
 from datetime import datetime as dt
 from datetime import timedelta
-
 import numpy as np
 from matplotlib import pyplot as plt
-
 import time
 
 begin = dt.now()
@@ -45,12 +47,16 @@ if __name__ == '__main__':
             f.write('\n' + ','.join(strung))
         
         with open('condition_data.csv','a') as f:
-            f.write('\n' + ','.join(condition_data))
+            f.write('\n' + ','.join(temp_strung))
     
     
 
         time.sleep(1)
+        
 
+
+    plot_line('condition_data.csv', 'temperature', 'temperature change over time', 'time', 'temperature in celcius', 'plot.png')
+"""
     with open("results.csv", "r") as f:
         content = np.rot90([i.strip().split(",") for i in f.readlines()][1:])
 
@@ -59,4 +65,5 @@ if __name__ == '__main__':
         X = np.arange(1, len(axis))
         plt.plot(X,Y)
 
-    plt.savefig("plot.png")
+    plt.savefig("plot.png")"""
+    
