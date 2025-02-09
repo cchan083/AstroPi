@@ -50,6 +50,7 @@ def get_humidity_temperature_pressure():
     sense_data.append(sense.get_pressure())
     sense_data.append(sense.get_temperature())
     sense_data.append(sense.get_humidity())
+    sense_data.append(datetime.now())
     return sense_data
 
     

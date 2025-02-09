@@ -33,7 +33,7 @@ if __name__ == '__main__':
                           'datetime']))
     
     with open('condition_data.csv', 'a') as f:
-        f.write(','.join(['pressure', 'temperature', 'humidity']))
+        f.write(','.join(['pressure', 'temperature', 'humidity', 'datetime']))
 
     new_time = dt.now() + timedelta(minutes=3)
     while dt.now() < new_time:
