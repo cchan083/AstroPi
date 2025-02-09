@@ -38,6 +38,7 @@ if __name__ == '__main__':
         data = log_data()
         strung = stringify(data)
         condition_data = temp_data()
+        temp_strung = stringify(condition_data)
         
 
         with open("results.csv", "a") as f:

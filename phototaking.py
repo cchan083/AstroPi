@@ -1,6 +1,5 @@
 from exif import Image
 from datetime import datetime
-
 from picamzero import Camera #Make sure to instead sudo and python3-picamzero
 from time import sleep
 import os
