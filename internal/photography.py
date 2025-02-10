@@ -1,8 +1,4 @@
-from exif import Image
 from picamzero import Camera  # Redundant on home machines, pre installed on the pi's
-
-from time import sleep
-from datetime import datetime
 import os
 
 class Photography:

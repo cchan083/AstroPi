@@ -3,7 +3,7 @@ import time
 
 from internal.speed_calc import Speed
 from internal.data_logger import DataLogger
-from internal.plotter import plot_line
+from internal.plotter import Plotter
 
 begin = datetime.now()
 stringify = lambda x : [str(i) for i in x]
@@ -20,14 +20,14 @@ if __name__ == '__main__':
                           'datetime']))
     
     with open('condition_data.csv', 'a') as f:
-
-        f.write(','.join(['pressure',
-                          'temperature',
+        f.write(','.join(['temperature',
+                          'pressure',
                           'humidity',
                           'datetime']))
 
-    new_time = datetime.now() + timedelta(minutes=8)
-    while datetime.now() < new_time:
+
+    upper_bound = datetime.now() + timedelta(minutes=8)
+    while datetime.now() < upper_bound:
         data = DataLogger.get_sense_data(
             orientation   = True,
             magnetometer  = True,
@@ -54,10 +54,10 @@ if __name__ == '__main__':
 
         time.sleep(30)
 
-    plot_line('condition_data.csv',
+    Plotter.plot_line('condition_data.csv',
               'temperature',
               'temperature change over time',
-              'time', 'temperature in celcius',
+              'time', 'temperature in celsius',
               'plot.png')
 
 

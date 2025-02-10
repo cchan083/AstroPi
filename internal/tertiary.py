@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import cv2
 import math
 from datetime import datetime
