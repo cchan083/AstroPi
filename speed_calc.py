@@ -11,6 +11,7 @@ from tertiary import Tertiary
 ########################################################################
 
 def calculate_speed(name_1, name_2, gsd=12648):
+    """Takes two photos, calculates distance and calculates speed."""
     Photography.take_pictures(1, name=name_1, x=1920, y=1080)
     Photography.take_pictures(1, name=name_2, x=1920, y=1080)
 
@@ -36,6 +37,7 @@ def calculate_speed(name_1, name_2, gsd=12648):
 ########################################################################
 
 def average_speed():
+    """Iterates through speed calculations and averages them."""
     speed_values = []
     for i in range(0, 9): # Iterate multiple times
         speed = calculate_speed(name_1=f'photo{i}', name_2=f'photo{i + 1}')
