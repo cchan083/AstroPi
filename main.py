@@ -1,7 +1,5 @@
 from speed_calc import average_speed as avg_speed
-
-from data_logger import get_humidity_temperature_pressure as temp_data
-from data_logger import get_sense_data as log_data
+from data_logger import DataLogger
 
 from plotter import plot_line
 
@@ -26,7 +24,6 @@ if __name__ == '__main__':
 
     with open("results.csv", "w") as f:
         f.write(','.join(['temp', 'pres', 'hum',
-                          'red', 'green', 'blue', 'clear',
                           'yaw', 'pitch', 'roll',
                           'mag_x', 'mag_y', 'mag_z',
                           'acc_x', 'acc_y', 'acc_z',
@@ -40,11 +37,17 @@ if __name__ == '__main__':
                           'humidity',
                           'datetime']))
 
-    new_time = dt.now() + timedelta(minutes=8)
-    while dt.now() < new_time:
+    new_time = datetime.now() + timedelta(minutes=8)
+    while datetime.now() < new_time:
         data = log_data()
         strung = stringify(data)
-        condition_data = temp_data()
+
+        condition_data = DataLogger.get_sense_data(
+            orientation   = False,
+            magnetometer  = False,
+            accelerometer = False,
+            gyro          = False,
+        )
         temp_strung = stringify(condition_data)
         
 
@@ -53,13 +56,16 @@ if __name__ == '__main__':
         
         with open('condition_data.csv','a') as f:
             f.write('\n' + ','.join(temp_strung))
-    
-    
+
 
         time.sleep(30)
         
 
 
-    plot_line('condition_data.csv', 'temperature', 'temperature change over time', 'time', 'temperature in celcius', 'plot.png')
+    plot_line('condition_data.csv',
+              'temperature',
+              'temperature change over time',
+              'time', 'temperature in celcius',
+              'plot.png')
 
 
