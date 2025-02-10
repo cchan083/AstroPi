@@ -18,7 +18,7 @@ stringify = lambda x : [str(i) for i in x]
 
 if __name__ == '__main__':
     try:
-        #avg_threaded(verbose=False)
+        avg_threaded(verbose=False)
         avg_unthreaded()
     except RuntimeError as e:
         print(e)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     with open('condition_data.csv', 'a') as f:
         f.write(','.join(['pressure', 'temperature', 'humidity', 'datetime']))
 
-    new_time = dt.now() + timedelta(minutes=8)
+    new_time = dt.now() + timedelta(minutes=2)
     while dt.now() < new_time:
         data = log_data()
         strung = stringify(data)

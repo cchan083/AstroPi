@@ -42,19 +42,4 @@ https://www.esa.int/Education/AstroPI/Astro_PI_Sense_HAT_emulator
 
 # Ideas for research 
 
-Using the sensors to find if certain types of life could survive on the ISS
- 
-
-Urban Light Pollution: Track city light spectra changes over time to study energy use patterns.
-
-
-Music or Art from space weather 
-
-
-Micrometeoroid & Debris Detection
-
-Aurora Spectroscopy: Capture RGB data of auroras to analyze their chemical composition and intensity from space.
-
-Atmospheric River Tracking: Correlate pressure drops with storm systems observed via the color sensor to study extreme weather precursors.
-
-Loom weaving based on atmospheric readings
+Space weather visualisation, with photos
