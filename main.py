@@ -1,26 +1,15 @@
-from speed_calc import average_speed as avg_speed
-from data_logger import DataLogger
-
-from plotter import plot_line
-
-from datetime import datetime
-from datetime import timedelta
-
-import numpy as np
-from matplotlib import pyplot as plt
-
+from datetime import datetime, timedelta
 import time
-begin = datetime.now()
 
+from internal.speed_calc import Speed
+from internal.data_logger import DataLogger
+from internal.plotter import plot_line
+
+begin = datetime.now()
 stringify = lambda x : [str(i) for i in x]
 
 if __name__ == '__main__':
-    try:
-        #avg_threaded(verbose=False)
-        avg_unthreaded()
-    except RuntimeError as e:
-        print(e)
-        avg_unthreaded()
+    Speed.average_speed()
 
     with open("results.csv", "w") as f:
         f.write(','.join(['temp', 'pres', 'hum',
@@ -39,7 +28,12 @@ if __name__ == '__main__':
 
     new_time = datetime.now() + timedelta(minutes=8)
     while datetime.now() < new_time:
-        data = log_data()
+        data = DataLogger.get_sense_data(
+            orientation   = True,
+            magnetometer  = True,
+            accelerometer = True,
+            gyro          = True,
+        )
         strung = stringify(data)
 
         condition_data = DataLogger.get_sense_data(
@@ -59,8 +53,6 @@ if __name__ == '__main__':
 
 
         time.sleep(30)
-        
-
 
     plot_line('condition_data.csv',
               'temperature',

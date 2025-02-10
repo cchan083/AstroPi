@@ -8,13 +8,14 @@ import os
 class Photography:
     @staticmethod
     def set_resolution(x: int=2592,y: int=1944): #(2592, 1944 is the max of V1 Module)
-        home_dir = os.environ['HOME']
+        """Defines the resolution of the image"""
         cam = Camera()
         cam.still_size = (x, y)
 
     @staticmethod
-    def take_pictures(num_images, name, x: int = 2592, y: int=1944): #num_images=x, interval(seconds)=y
+    def take_picture(name, x: int = 2592, y: int=1944):
+        """Takes two pictures, stores them in the home directory"""
         Photography.set_resolution(x,y)
         home_dir = os.environ['HOME']
         cam = Camera()
-        cam.capture_sequence(f"{home_dir}/{name}.jpg", num_images=num_images)
+        cam.capture_sequence(f"{home_dir}/{name}.jpg", num_images=1)
