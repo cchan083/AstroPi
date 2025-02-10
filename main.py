@@ -1,24 +1,24 @@
-from threaded_calc import main as avg_threaded
-
-from unthreaded_calc import average_speed as avg_unthreaded
+from speed_calc import average_speed as avg_speed
 
 from data_logger import get_humidity_temperature_pressure as temp_data
 from data_logger import get_sense_data as log_data
 
 from plotter import plot_line
 
-from datetime import datetime as dt
+from datetime import datetime
 from datetime import timedelta
+
 import numpy as np
 from matplotlib import pyplot as plt
-import time
 
-begin = dt.now()
+import time
+begin = datetime.now()
+
 stringify = lambda x : [str(i) for i in x]
 
 if __name__ == '__main__':
     try:
-        avg_threaded(verbose=False)
+        #avg_threaded(verbose=False)
         avg_unthreaded()
     except RuntimeError as e:
         print(e)
@@ -34,9 +34,13 @@ if __name__ == '__main__':
                           'datetime']))
     
     with open('condition_data.csv', 'a') as f:
-        f.write(','.join(['pressure', 'temperature', 'humidity', 'datetime']))
 
-    new_time = dt.now() + timedelta(minutes=2)
+        f.write(','.join(['pressure',
+                          'temperature',
+                          'humidity',
+                          'datetime']))
+
+    new_time = dt.now() + timedelta(minutes=8)
     while dt.now() < new_time:
         data = log_data()
         strung = stringify(data)
