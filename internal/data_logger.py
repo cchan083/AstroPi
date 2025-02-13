@@ -2,8 +2,8 @@ from sense_hat import SenseHat
 from datetime import datetime
 
 sense = SenseHat()
-sense.color.gain = 60
-sense.color.integration_cycles = 64
+# sense.color.gain = 60
+# sense.color.integration_cycles = 64
 
 class DataLogger:
     @staticmethod
@@ -12,8 +12,12 @@ class DataLogger:
             magnetometer=False,
             accelerometer=False,
             gyro=False) -> list:
+        """returns toggleable sensor data inside an array"""
 
         sense_data = [sense.get_temperature(), sense.get_pressure(), sense.get_humidity()]
+
+        # TODO
+        # Change this to a dictionary
 
         xyz = ["x", "y", "z"]
         ypw = ["yaw", "pitch", "roll"]

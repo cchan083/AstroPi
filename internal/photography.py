@@ -14,4 +14,4 @@ class Photography:
         Photography.set_resolution(x,y)
         home_dir = os.environ['HOME']
         cam = Camera()
-        cam.capture_sequence(f"{home_dir}/{name}.jpg", num_images=1)
+        cam.capture_sequence(f"{home_dir}/photos/{name}.jpg", num_images=1)
