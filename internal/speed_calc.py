@@ -4,7 +4,7 @@ import os
 import time
 
 from internal.photography import Photography
-from tertiary import Tertiary
+from internal.tertiary import Tertiary
 
 class Speed:
     @staticmethod

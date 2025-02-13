@@ -2,7 +2,7 @@ from exif import Image
 from datetime import datetime
 import cv2
 import math
-from photography import take_pictures
+from internal.photography import take_pictures
 # 3 . 4 6 2 2
 
 

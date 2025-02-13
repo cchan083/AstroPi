@@ -15,7 +15,7 @@ Does the angle of motion (diagonally across the frame) have a impact that needs 
 
 Think of a research question to explore: 
 
-Sensors avaliable: 
+Sensors available: 
 
 • A passive infrared sensor (PIR) 
 
