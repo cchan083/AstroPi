@@ -1,6 +1,8 @@
 # AstroPi
 In this project, our group will be trying to estimate the velocity of the ISS, using computer vision 
 
+### Dataset
+https://www.kaggle.com/datasets/arashnic/soalr-wind
 
 Improving our program:
 Use a different feature detection algorithm in OpenCV
