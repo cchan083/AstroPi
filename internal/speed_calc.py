@@ -39,7 +39,7 @@ class Speed:
         """Iterates through speed calculations and averages them."""
         speed_values = []
         for i in range(0, 9): # Iterate multiple times
-            speed = Speed.calculate_speed(name_1=f'photo{i}', name_2=f'\photo{i + 1}')
+            speed = Speed.calculate_speed(name_1=f'photo{i}', name_2=f'photo{i + 1}')
 
             if 7 < speed < 8: # Scrub outliers from storage
                 speed_values.append(speed)
