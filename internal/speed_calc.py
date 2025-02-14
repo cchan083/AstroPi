@@ -1,3 +1,4 @@
+import statistics
 from statistics import mean
 
 import os
@@ -46,7 +47,7 @@ class Speed:
                 time.sleep(10)  # Delay to soft reset camera
             else:
                 continue
-        average_speed = mean(speed_values)
+        average_speed = statistics.mean(speed_values)
 
         with open('result.txt', 'w') as f:
             f.write(f"{average_speed:.4f}") # Store result as string

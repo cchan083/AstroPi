@@ -70,7 +70,7 @@ class DataLogger:
 
         condition_data = DataLogger.get_sense_data(
             orientation=False,
-            magnetometer=False,
+            magnetometer=True,
             accelerometer=False,
             gyro=False,
         )

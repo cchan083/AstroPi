@@ -28,5 +28,7 @@ CONST = Constants(
     gsd                 =       I32(12648),
     feature_num         =       I32(2000),
     data_log_interval   =       I32(10),
-    data_log_duration   =       I32(3),
+    data_log_duration   =       I32(2),
 )
+
+##########################################
