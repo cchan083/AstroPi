@@ -1,10 +1,10 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-import joblib
+import pickle
 #Feature engineering the magnitude
 
 def add_features():
-    df = pd.read_csv('results.csv')
+    df = pd.read_csv('Logistic Regressor and Data Analysis/results.csv')
 
     df = df.drop([
         'temp',
@@ -27,16 +27,16 @@ def add_features():
     ], axis=1)
     
     df = df.rename(columns={'mag_x':'filtered_x', 'mag_y':'by_gse', 'mag_z':'bz_gse'})
-    
+    df['minutes'] = df.index
     df['Magnitude'] = ((df['filtered_x']**2) + (df['by_gse'] ** 2) + (df['bz_gse'] ** 2)) ** 0.5
-    X = df[['filtered_x', 'Magnitude', 'by_gse', 'bz_gse']]
+    X = df[['filtered_x', 'Magnitude','minutes', 'by_gse', 'bz_gse']]
     scaler = StandardScaler()
     scaled_X = scaler.fit_transform(X)
     return scaled_X
 
 def model_predict():
-    with open('model.csv', 'rb') as f:
-        model = joblib.load(f)
+    with open('Logistic Regressor and Data Analysis/model.csv', 'rb') as f:
+        model = pickle.load(f)
     y_pred = model.predict(add_features())
     print(f'predicted values: {y_pred}')
     
