@@ -6,15 +6,16 @@ import os
 from internal.speed_calc import Speed
 from internal.data_logger import DataLogger
 from internal.file_man import FileManager
+from internal.plotter import Plotter
 from internal.CONST import CONST
 
 from feature_engineering import model_predict
 
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 
-# TODO
-# Possibly look at threading the data collection
-
+import numpy as np
 
 if __name__ == '__main__':
     begin_dt = datetime.now()
@@ -35,5 +36,3 @@ if __name__ == '__main__':
         os.system('echo . > out.txt')
         with open("out.txt" ,"w") as file:
             file.write(str(_tw))
-    
-    model_predict()
