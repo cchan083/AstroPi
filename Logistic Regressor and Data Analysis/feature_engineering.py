@@ -38,9 +38,14 @@ def model_predict():
     with open('Logistic Regressor and Data Analysis/model.csv', 'rb') as f:
         model = pickle.load(f)
     y_pred = model.predict(add_features())
+    
     print(f'predicted values: {y_pred}')
+    new_df = pd.read_csv('results.csv')
+    new_df['predictions'] = y_pred
+    with open('predictions.csv', 'wb') as f:
+        pickle.dump(new_df, f )
     
 
-model_predict()
-    
+if __name__ == '__main__':
+    model_predict()
 

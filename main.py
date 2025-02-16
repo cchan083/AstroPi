@@ -8,6 +8,8 @@ from internal.data_logger import DataLogger
 from internal.file_man import FileManager
 from internal.CONST import CONST
 
+from feature_engineering import model_predict
+
 import matplotlib.pyplot as plt
 
 # TODO
@@ -33,3 +35,5 @@ if __name__ == '__main__':
         os.system('echo . > out.txt')
         with open("out.txt" ,"w") as file:
             file.write(str(_tw))
+    
+    model_predict()
