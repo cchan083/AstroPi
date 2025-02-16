@@ -15,7 +15,7 @@ asyncio.run(install_package())
 from sklearn.preprocessing import StandardScaler
 
 def add_features():
-    df = pd.read_csv('Logistic Regressor and Data Analysis/results.csv')
+    df = pd.read_csv('results.csv')
 
     df = df.drop([
         'temp',
@@ -46,9 +46,9 @@ def add_features():
     return scaled_X
 
 def model_predict():
-    with open('Logistic Regressor and Data Analysis/model.csv', 'rb') as f:
+    with open('model.csv', 'rb') as f:
         model = pickle.load(f)
-    y_pred = model.predict(add_features())
+    y_pred = (model.predict_proba(add_features())[:,1] >= 0.9).astype(int)
     
     print(f'predicted values: {y_pred}')
     new_df = pd.read_csv('results.csv')
