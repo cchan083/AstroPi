@@ -28,5 +28,5 @@ class FileManager:
             f.write(','.join(['temperature',
                               'pressure',
                               'humidity',
-                              'datetime',
-                              'mag_x', 'mag_y', 'mag_z']))
+                              'mag_x', 'mag_y', 'mag_z',
+                              'datetime']))

@@ -9,7 +9,7 @@ from internal.file_man import FileManager
 from internal.plotter import Plotter
 from internal.CONST import CONST
 
-from feature_engineering import model_predict
+from LogisticRegress.feature_engineering import model_predict
 
 import matplotlib
 matplotlib.use('Agg')
@@ -36,3 +36,9 @@ if __name__ == '__main__':
         os.system('echo . > out.txt')
         with open("out.txt" ,"w") as file:
             file.write(str(_tw))
+
+    model_predict()
+
+    Plotter.plot_temp(_cond["temperature"])
+    Plotter.plot_all(_cond)
+        
