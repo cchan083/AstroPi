@@ -1,5 +1,4 @@
 import statistics
-from statistics import mean
 
 import os
 import time
