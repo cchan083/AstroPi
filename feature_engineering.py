@@ -50,8 +50,8 @@ def model_predict():
         model = pickle.load(f)
     y_pred = (model.predict_proba(add_features())[:,1] >= 0.9).astype(int)
     
-    print(f'predicted values: {y_pred}')
-    new_df = pd.read_csv('results.csv')
+    
+    new_df = pd.read_csv('data//condition_data.csv')
     new_df['predictions'] = y_pred
     
 

@@ -18,11 +18,11 @@ class Plotter:
         data['mag_hypotenuse'] = ((data['mag_x'] ** 2) + (data['mag_y'] ** 2) + (data['mag_z'] ** 2))**0.5
 
         # Convert the 'datetime' column to a proper datetime format
-        data['datetime'] = pd.to_datetime(data['datetime'], format='%M:%S.%f')
-
+        #data['datetime'] = pd.to_datetime(data['datetime'], format='%M:%S.%f')
+        data['minutes'] = data.index / 2
         # Plot the data
         plt.figure(figsize=(10, 6))
-        plt.plot(data['datetime'], data['mag_hypotenuse'], marker='o', linestyle='-', color='b')
+        plt.plot(data['minutes'], data['mag_hypotenuse'], marker='o', linestyle='-', color='b')
 
         # Add labels and title
         plt.xlabel('Time')

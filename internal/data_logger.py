@@ -76,10 +76,10 @@ class DataLogger:
         )
         temp_strung = stringify(condition_data.values())
 
-        with open("data\\results.csv", "a") as f:
+        with open("data/results.csv", "a") as f:
             f.write('\n' + ','.join(strung))
 
-        with open('data\\condition_data.csv', 'a') as f:
+        with open('data/condition_data.csv', 'a') as f:
             f.write('\n' + ','.join(temp_strung))
 
         time.sleep(
