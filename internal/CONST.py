@@ -16,10 +16,14 @@ class Value:
     def __init__(self, val):
         self.value = val
 
-
 class I32(Value):
     def __init__(self, val):
         super().__init__(val)
+
+class String(Value):
+    def __init__(self, val):
+        super().__init__(val)
+
 
 ###########################################
 
@@ -27,8 +31,8 @@ CONST = Constants(
     # SPEED CALCULATION CONSTANTS
     gsd                 =       I32( 12648 ),
     feature_num         =       I32( 2000  ),
-    data_log_interval   =       I32( 10    ),
-    data_log_duration   =       I32( 3     ),
+    data_log_interval   =       I32( 10    ), # SECONDS
+    data_log_duration   =       I32( 1     ), # MINS
 )
 
 ##########################################
