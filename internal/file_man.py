@@ -16,7 +16,7 @@ class FileManager:
 
     @staticmethod
     def csv_header():
-        with open("data\\results.csv", "w") as f:
+        with open("results.csv", "w") as f:
             f.write(','.join(['temp', 'pres', 'hum',
                               'yaw', 'pitch', 'roll',
                               'mag_x', 'mag_y', 'mag_z',
@@ -24,7 +24,7 @@ class FileManager:
                               'gyro_x', 'gyro_y', 'gyro_z',
                               'datetime']))
 
-        with open('data\\condition_data.csv', 'a') as f:
+        with open('condition_data.csv', 'a') as f:
             f.write(','.join(['temperature',
                               'pressure',
                               'humidity',

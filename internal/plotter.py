@@ -13,9 +13,9 @@ class Plotter:
         plt.close()
 
     @staticmethod
-    def plot_all(dataframe) -> None:
-        data = dataframe.to_numpy()
-        data['mag_hypotenuse'] = np.sqrt(data['mag_x'] ** 2 + data['mag_y'] ** 2 + data['mag_z'] ** 2)
+    def plot_all(data) -> None:
+        #data = dataframe.to_numpy()
+        data['mag_hypotenuse'] = ((data['mag_x'] ** 2) + (data['mag_y'] ** 2) + (data['mag_z'] ** 2))**0.5
 
         # Convert the 'datetime' column to a proper datetime format
         data['datetime'] = pd.to_datetime(data['datetime'], format='%M:%S.%f')

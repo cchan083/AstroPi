@@ -9,7 +9,6 @@ from internal.file_man import FileManager
 from internal.plotter import Plotter
 from internal.CONST import CONST
 
-from LogisticRegress.feature_engineering import model_predict
 
 import matplotlib
 matplotlib.use('Agg')
@@ -29,7 +28,7 @@ if __name__ == '__main__':
     while datetime.now() < end_dt:
         DataLogger.log()
 
-        _cond = pd.read_csv(r"data\condition_data.csv")
+        _cond = pd.read_csv(r"condition_data.csv")
 
         _tw = list(_cond.iloc[-3:-1])
 
@@ -37,7 +36,7 @@ if __name__ == '__main__':
         with open("out.txt" ,"w") as file:
             file.write(str(_tw))
 
-    model_predict()
+    _cond = pd.read_csv(r"condition_data.csv")
 
     Plotter.plot_temp(_cond["temperature"])
     Plotter.plot_all(_cond)
