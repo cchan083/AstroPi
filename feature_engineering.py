@@ -1,30 +1,27 @@
-import pandas as pd
 
 import pickle
-import asyncio
+import pandas as pd
+
 import micropip
+#await micropip.install('scikit-learn')
+# Sklearn doesn't work so standard scaler manually with np
+import asyncio
+import numpy as np
 
-# Define an async function to install the package
-async def install_package():
- 
-    await micropip.install('scikit-learn')
-    from sklearn.preprocessing import StandardScaler
-#Feature engineering the magnitude
-asyncio.run(install_package())
+def StandardScaler(data):
+    mean = np.mean(data, axis=0)
+    std = np.std(data, axis=0)
+    return (data - mean) / std
 
-from sklearn.preprocessing import StandardScaler
+
+
 
 def add_features():
-    df = pd.read_csv('results.csv')
-
+    df = pd.read_csv('data/results.csv')
     df = df.drop([
         'temp',
         'pres',
         'hum',
-        'red',
-        'green',
-        'blue',
-        'clear',
         'yaw',
         'pitch',
         'roll',
@@ -41,20 +38,37 @@ def add_features():
     df['minutes'] = df.index
     df['Magnitude'] = ((df['filtered_x']**2) + (df['by_gse'] ** 2) + (df['bz_gse'] ** 2)) ** 0.5
     X = df[['filtered_x', 'Magnitude','minutes', 'by_gse', 'bz_gse']]
-    scaler = StandardScaler()
-    scaled_X = scaler.fit_transform(X)
+    scaled_X = StandardScaler(X)
+    scaled_X = scaled_X.to_numpy()
     return scaled_X
 
-def model_predict():
+async def model_predict():
+    await micropip.install('scikit-learn')
+    print('sklearn installed')
+    
+    from sklearn.linear_model import LogisticRegression
+    
     with open('model.csv', 'rb') as f:
         model = pickle.load(f)
-    y_pred = (model.predict_proba(add_features())[:,1] >= 0.9).astype(int)
+    y_pred = (model.predict_proba((add_features()))[:,1] >= 0.9).astype(int)
     
     
-    new_df = pd.read_csv('data//condition_data.csv')
+    new_df = pd.read_csv('data/results.csv')
     new_df['predictions'] = y_pred
+    new_df.to_csv('results.csv', index=False)
     
 
-model_predict()
-    
+async def main():
+    await model_predict()
+
+"""if __name__ == "__main__":
+    try:
+    # Try to get the running event loop
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+    # If no event loop is running, use asyncio.run()
+        asyncio.run(main())
+    else:
+    # If an event loop is running, await the coroutine
+        await main()"""
 
