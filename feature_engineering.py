@@ -46,16 +46,25 @@ async def model_predict():
     await micropip.install('scikit-learn')
     print('sklearn installed')
     
+    df = pd.read_csv('data/results.csv')
+    
     from sklearn.linear_model import LogisticRegression
     
     with open('model.csv', 'rb') as f:
         model = pickle.load(f)
+        
     y_pred = (model.predict_proba((add_features()))[:,1] >= 0.9).astype(int)
+    df['predictions'] = y_pred
+    std_dev = df['Magnitude'].std()
+    mean_val = df['Magnitude'].mean()
+
+
+    if (std_dev < 5) and (30 <= mean_val <= 45):
+        df['Threshold_Column'] = 0
+    else:
+        df['Threshold_Column'] = df['raw_predicitions']
     
-    
-    new_df = pd.read_csv('data/results.csv')
-    new_df['predictions'] = y_pred
-    new_df.to_csv('results.csv', index=False)
+    df.to_csv('results.csv', index=False)
     
 
 async def main():
