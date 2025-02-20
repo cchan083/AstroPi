@@ -15,8 +15,12 @@ def StandardScaler(data):
 
 
 
-
-def add_features():
+async def model_predict():
+    await micropip.install('scikit-learn')
+    print('sklearn installed')
+    
+    df = pd.read_csv('data/results.csv')
+    
     df = pd.read_csv('data/results.csv')
     df = df.drop([
         'temp',
@@ -40,20 +44,13 @@ def add_features():
     X = df[['filtered_x', 'Magnitude','minutes', 'by_gse', 'bz_gse']]
     scaled_X = StandardScaler(X)
     scaled_X = scaled_X.to_numpy()
-    return scaled_X
-
-async def model_predict():
-    await micropip.install('scikit-learn')
-    print('sklearn installed')
-    
-    df = pd.read_csv('data/results.csv')
     
     from sklearn.linear_model import LogisticRegression
     
     with open('model.csv', 'rb') as f:
         model = pickle.load(f)
         
-    y_pred = (model.predict_proba((add_features()))[:,1] >= 0.9).astype(int)
+    y_pred = (model.predict_proba((scaled_X))[:,1] >= 0.9).astype(int)
     df['predictions'] = y_pred
     std_dev = df['Magnitude'].std()
     mean_val = df['Magnitude'].mean()
@@ -70,14 +67,5 @@ async def model_predict():
 async def main():
     await model_predict()
 
-"""if __name__ == "__main__":
-    try:
-    # Try to get the running event loop
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-    # If no event loop is running, use asyncio.run()
-        asyncio.run(main())
-    else:
-    # If an event loop is running, await the coroutine
-        await main()"""
+
 
