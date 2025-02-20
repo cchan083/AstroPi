@@ -35,7 +35,7 @@ def add_features():
     ], axis=1)
     
     df = df.rename(columns={'mag_x':'filtered_x', 'mag_y':'by_gse', 'mag_z':'bz_gse'})
-    df['minutes'] = df.index
+    df['minutes'] = df.index / 2
     df['Magnitude'] = ((df['filtered_x']**2) + (df['by_gse'] ** 2) + (df['bz_gse'] ** 2)) ** 0.5
     X = df[['filtered_x', 'Magnitude','minutes', 'by_gse', 'bz_gse']]
     scaled_X = StandardScaler(X)

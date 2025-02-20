@@ -31,8 +31,8 @@ CONST = Constants(
     # SPEED CALCULATION CONSTANTS
     gsd                 =       I32( 12648 ),
     feature_num         =       I32( 2000  ),
-    data_log_interval   =       I32( 20   ), # SECONDS
-    data_log_duration   =       I32( 3   ), # MINS
+    data_log_interval   =       I32( 30   ), # SECONDS
+    data_log_duration   =       I32( 9   ), # MINS
 )
 
 ##########################################
