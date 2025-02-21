@@ -3,10 +3,10 @@ import pickle
 import pandas as pd
 
 import micropip
+import numpy as np
+
 #await micropip.install('scikit-learn')
 # Sklearn doesn't work so standard scaler manually with np
-import asyncio
-import numpy as np
 
 def StandardScaler(data):
     mean = np.mean(data, axis=0)
