@@ -1,5 +1,3 @@
-import statistics
-
 import os
 import time
 
