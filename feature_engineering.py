@@ -51,7 +51,7 @@ async def model_predict():
         model = pickle.load(f)
         
     y_pred = (model.predict_proba((scaled_X))[:,1] >= 0.9).astype(int)
-    df['predictions'] = y_pred
+    df['raw_predictions'] = y_pred
     std_dev = df['Magnitude'].std()
     mean_val = df['Magnitude'].mean()
 
@@ -59,7 +59,7 @@ async def model_predict():
     if (std_dev < 5) and (30 <= mean_val <= 45):
         df['Threshold_Column'] = 0
     else:
-        df['Threshold_Column'] = df['raw_predicitions']
+        df['Threshold_Column'] = y_pred
     
     df.to_csv('results.csv', index=False)
     

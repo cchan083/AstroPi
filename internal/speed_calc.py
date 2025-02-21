@@ -46,7 +46,12 @@ class Speed:
                 time.sleep(10)  # Delay to soft reset camera
             else:
                 continue
-        average_speed = statistics.mean(speed_values)
+        total = 0
+        for i in speed_values:
+             total = total + i
+             
+        average_speed = total / len(speed_values)
+             
 
         with open('result.txt', 'w') as f:
             f.write(f"{average_speed:.4f}") # Store result as string
