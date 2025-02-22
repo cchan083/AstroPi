@@ -4,7 +4,7 @@ Your program does not rely on interaction with an astronaut. ✅✅
 
 Your program is written in Python 3.11 and is named main.py, and it runs without errors when tested with the Astro Pi Replay Tool using python3 main.py. ✅✅
 
-Your program does not rely on any additional libraries other than those listed in the Mission Space Lab creator guide (rpf.io/msl-creators).  ```Pickle and asyncio is not allowed```
+Your program does not rely on any additional libraries other than those listed in the Mission Space Lab creator guide (rpf.io/msl-creators).  ```Pickle not allowed```
 
 
 Your program monitors its running time and stops after 10 minutes have elapsed. ✅✅
@@ -64,7 +64,7 @@ Program readability and quality
 
 Is your program easily understandable?✅
 
-Does it use any prohibited libraries, or attempt to do anything malicious? ```Pickle and asyncio```
+Does it use any prohibited libraries, or attempt to do anything malicious? ```Pickle```
 
 Are absolute paths used?```folders being created```
 

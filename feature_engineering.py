@@ -5,7 +5,7 @@ import pandas as pd
 import micropip
 import numpy as np
 
-
+import json
 
 def StandardScaler(data):
     mean = np.mean(data, axis=0) 
@@ -47,8 +47,18 @@ async def model_predict():
     
     from sklearn.linear_model import LogisticRegression
     
-    with open('model.csv', 'rb') as f:
-        model = pickle.load(f)
+    with open("model_params.json", "r") as f:
+        params = json.load(f) #load parameters
+
+
+    model = LogisticRegression()
+    
+    X_dummy = np.array([[0]])  # Dummy input and output to init model
+    y_dummy = np.array([0])    
+    model.fit(X_dummy, y_dummy)
+    
+    model.coef_ = np.array(params["coef"])  # Convert back to NumPy array
+    model.intercept_ = params["intercept"]
         
     y_pred = (model.predict_proba((scaled_X))[:,1] >= 0.9).astype(int) 
     # reject probabilities under 0.9 for class 1 
