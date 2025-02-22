@@ -16,6 +16,7 @@ class FileManager:
 
     @staticmethod
     def csv_header():
+    
         with open("data/results.csv", "a") as f:
             f.write(','.join(['temp', 'pres', 'hum',
                               'yaw', 'pitch', 'roll',

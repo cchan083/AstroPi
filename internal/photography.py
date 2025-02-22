@@ -12,6 +12,8 @@ class Photography:
     def take_picture(name, x: int = 2592, y: int=1944):
         """Takes two pictures, stores them in the home directory"""
         Photography.set_resolution(x,y)
-        home_dir = os.environ['HOME']
+        #home_dir = os.environ['HOME']
+        """from pathlib import Path
+        home_dir = Path(__file__).parent.resolve()"""
         cam = Camera()
-        cam.capture_sequence(f"{home_dir}/photos/{name}.jpg", num_images=1)
+        cam.capture_sequence(f"photos/{name}.jpg", num_images=1)
