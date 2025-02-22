@@ -37,7 +37,7 @@ Requirements: Files and threads
 
 Your program does not use threads, or if it does, it does so only by using the threading library; threads are managed carefully and closed cleanly, and their use is clearly explained through comments in the code.✅✅
 
-Your program only saves data in the same folder where your main Python file is, as described in the Mission Space Lab creator guide (i.e. using the special __file__ variable); your program does not attempt to create new directories for storing your data, and no absolute path names are used. ```Double check this as it creates a data folder```
+Your program only saves data in the same folder where your main Python file is, as described in the Mission Space Lab creator guide (i.e. using the special __file__ variable); your program does not attempt to create new directories for storing your data, and no absolute path names are used. ```Double check this as it creates a data folder```✅
 
 Your program runs without errors and does not raise any unhandled exceptions. ✅
 
@@ -66,9 +66,9 @@ Is your program easily understandable?✅
 
 Does it use any prohibited libraries, or attempt to do anything malicious? ✅
 
-Are absolute paths used? ```no``` ✅
+Are absolute paths used? ✅
 
-Are all files created in the allowed files directory? ```folders```
+Are all files created in the allowed files directory? ```folders```✅
 
 Does your program use comments and/or docstrings? ✅
 
