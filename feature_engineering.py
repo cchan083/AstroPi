@@ -53,8 +53,14 @@ async def model_predict():
 
     model = LogisticRegression()
     
-    X_dummy = np.array([[0]])  # Dummy input and output to init model
-    y_dummy = np.array([0])    
+    X_dummy = np.array([
+    [0, 1, 2, 3, 4],  # Sample 1
+    [1, 2, 3, 4, 5]   # Sample 2
+])
+
+# Dummy output (labels)
+    y_dummy = np.array([0, 1])  # Dummy input and output to init model
+        
     model.fit(X_dummy, y_dummy)
     
     model.coef_ = np.array(params["coef"])  # Convert back to NumPy array
