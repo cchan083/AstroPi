@@ -13,27 +13,16 @@ from feature_engineering import main as predictor
 
 import matplotlib
 matplotlib.use('Agg')
-from matplotlib import pyplot as plt
-
-import numpy as np
-
-
-import asyncio
-
-
-#async def load():
-#   await pyodide.loadPackage('scikit-learn')
-#   print('loaded')
 
 if __name__ == '__main__':
     
     begin_dt = datetime.now()
-    end_dt = begin_dt + timedelta(minutes=CONST.data_log_duration)
+    end_dt = begin_dt + timedelta(minutes=CONST.data_log_duration) # monitoring time and log duration
 
     FileManager.format()
     FileManager.csv_header()
 
-    Speed.average_speed()
+    Speed.average_speed() #call average speed
 
     while datetime.now() < end_dt:
         DataLogger.log()
@@ -51,12 +40,5 @@ if __name__ == '__main__':
     Plotter.plot_temp(_cond["temperature"])
     Plotter.plot_all(_cond)
     
-    try:
-    # Try to get the running event loop
-        loop = asyncio.get_running_loop()
-    except RuntimeError:
-    # If no event loop is running, use asyncio.run()
-        asyncio.run(predictor())
-    else:
-    # If an event loop is running, await the coroutine
-        await predictor()
+    
+    await predictor()
