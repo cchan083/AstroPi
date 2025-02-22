@@ -14,6 +14,7 @@ from feature_engineering import main as predictor
 import matplotlib
 matplotlib.use('Agg')
 
+
 if __name__ == '__main__':
     
     begin_dt = datetime.now()
@@ -32,7 +33,7 @@ if __name__ == '__main__':
         _tw = list(_cond.iloc[-3:-1])
 
         os.system('echo . > out.txt')
-        with open("out.txt" ,"w") as file:
+        with open("out.txt" ,"w",buffering=1) as file:
             file.write(str(_tw))
 
     _cond = pd.read_csv(r"data/condition_data.csv")

@@ -5,6 +5,9 @@ from internal.photography import Photography
 from internal.tertiary import Tertiary
 from internal.CONST import CONST
 
+# Some code taken from the 'Calculating ISS speed with photos' but made it object oriented https://projects.raspberrypi.org/en/projects/astropi-iss-speed/0
+
+
 class Speed:
     @staticmethod
     def calculate_speed(name_1: str, name_2: str, gsd: int = CONST.gsd):
@@ -51,5 +54,5 @@ class Speed:
         average_speed = total / len(speed_values)
              
 
-        with open('result.txt', 'w') as f:
+        with open('result.txt', 'a') as f:
             f.write(f"{average_speed:.4f}") # Store result as string

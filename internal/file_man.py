@@ -12,11 +12,11 @@ class FileManager:
 
         for folder in folders:
             if folder not in list(dirs):
-                os.mkdir(folder)
+                os.mkdir(folder) #make photos and the data folder 
 
     @staticmethod
     def csv_header():
-        with open("data/results.csv", "w") as f:
+        with open("data/results.csv", "a") as f:
             f.write(','.join(['temp', 'pres', 'hum',
                               'yaw', 'pitch', 'roll',
                               'mag_x', 'mag_y', 'mag_z',

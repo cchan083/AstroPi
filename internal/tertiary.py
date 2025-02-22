@@ -3,6 +3,9 @@ import math
 from datetime import datetime
 from exif import Image
 
+
+# Some code also taken from 'Calculating ISS speed with photos' but made object oriented https://projects.raspberrypi.org/en/projects/astropi-iss-speed/0
+
 class Tertiary:
     @staticmethod
     def get_time(path: str) -> datetime:
@@ -22,8 +25,8 @@ class Tertiary:
     @staticmethod
     def convert_to_cv(image_1: str, image_2: str):
         """Converts images to grayscale OpenCV format."""
-        image_1_cv = cv2.cvtColor(cv2.imread(image_1), cv2.COLOR_BGR2GRAY)
-        image_2_cv = cv2.cvtColor(cv2.imread(image_2), cv2.COLOR_BGR2GRAY)
+        image_1_cv = cv2.cvtColor(cv2.imread(str(image_1)), cv2.COLOR_BGR2GRAY)
+        image_2_cv = cv2.cvtColor(cv2.imread(str(image_2)), cv2.COLOR_BGR2GRAY)
         return image_1_cv, image_2_cv
 
     @staticmethod
@@ -36,7 +39,7 @@ class Tertiary:
 
     @staticmethod
     def calculate_matches(des1, des2):
-        """Finds feature matches between two images using BFMatcher."""
+        """Finds feature matches between two images using Brute force."""
         bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
         matches = bf.match(des1, des2)
         return sorted(matches, key=lambda x: x.distance)

@@ -21,8 +21,6 @@ class DataLogger:
             "humid": sense.get_humidity()
                       }
 
-        # TODO
-        # Change this to a dictionary
 
         xyz = ["x", "y", "z"]
         ypw = ["yaw", "pitch", "roll"]
@@ -66,7 +64,7 @@ class DataLogger:
             accelerometer=True,
             gyro=True,
         )
-        strung = stringify(data.values())
+        strung = stringify(data.values()) #convert to string
 
         condition_data = DataLogger.get_sense_data(
             orientation=False,

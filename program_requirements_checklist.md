@@ -4,7 +4,7 @@ Your program does not rely on interaction with an astronaut. ✅✅
 
 Your program is written in Python 3.11 and is named main.py, and it runs without errors when tested with the Astro Pi Replay Tool using python3 main.py. ✅✅
 
-Your program does not rely on any additional libraries other than those listed in the Mission Space Lab creator guide (rpf.io/msl-creators).  ```Pickle not allowed```
+Your program does not rely on any additional libraries other than those listed in the Mission Space Lab creator guide (rpf.io/msl-creators).  ✅
 
 
 Your program monitors its running time and stops after 10 minutes have elapsed. ✅✅
@@ -39,7 +39,7 @@ Your program does not use threads, or if it does, it does so only by using the t
 
 Your program only saves data in the same folder where your main Python file is, as described in the Mission Space Lab creator guide (i.e. using the special __file__ variable); your program does not attempt to create new directories for storing your data, and no absolute path names are used. ```Double check this as it creates a data folder```
 
-Your program runs without errors and does not raise any unhandled exceptions. ```double check```
+Your program runs without errors and does not raise any unhandled exceptions. ✅
 
 Any files that your program creates have names that only include letters, numbers, dots (.), dashes (-), or underscores (_).✅✅
 
@@ -64,9 +64,9 @@ Program readability and quality
 
 Is your program easily understandable?✅
 
-Does it use any prohibited libraries, or attempt to do anything malicious? ```Pickle```
+Does it use any prohibited libraries, or attempt to do anything malicious? ✅
 
-Are absolute paths used?```folders being created```
+Are absolute paths used? ```no``` ✅
 
 Are all files created in the allowed files directory? ```folders```
 
@@ -74,7 +74,7 @@ Does your program use comments and/or docstrings? ✅
 
 Is it structured well, and does it include rigorous error checking? ```no```
 
-Is reused code from other sources/authors correctly attributed? ```no```
+Is reused code from other sources/authors correctly attributed? ✅
 
 Does the program respond to changes in the speed of the ISS? ✅
 
