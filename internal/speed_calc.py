@@ -14,10 +14,6 @@ class Speed:
         """Takes two photos, calculates distance and calculates speed."""
         Photography.take_picture(name=name_1, x=1920, y=1080)
         Photography.take_picture(name=name_2, x=1920, y=1080)
-
-
-        """img1 = f'{home_dir}/photos/{name_1}-1.jpg'
-        img2 = f'{home_dir}/photos/{name_2}-1.jpg'"""
         
         img1 = f'photos/{name_1}-1.jpg'
         img2 = f'photos/{name_2}-1.jpg'
@@ -50,7 +46,10 @@ class Speed:
         for i in speed_values:
              total = total + i
         
-        average_speed = total / len(speed_values)
+        try:
+            average_speed = total / len(speed_values)
+        except:
+            print('speed_values is empty.')
              
 
         with open('result.txt', 'a') as f:

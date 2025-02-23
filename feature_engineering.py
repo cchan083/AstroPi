@@ -24,7 +24,10 @@ def StandardScaler(data):
  
 
 async def model_predict():
-    await micropip.install('scikit-learn')
+    try:
+        from sklearn.linear_model import LogisticRegression
+    except:    
+        await micropip.install('scikit-learn')
  # load in sklearn
     
     df = pd.read_csv('data/results.csv')
@@ -56,17 +59,17 @@ async def model_predict():
     from sklearn.linear_model import LogisticRegression
     
     with open("model_params.json", "r") as f:
-        params = json.load(f) #load parameters
+        params = json.load(f) #load parameters and model_weights
 
 
     model = LogisticRegression()
     
-    X_dummy = np.array([
-    [0, 1, 2, 3, 4],  # Sample 1
-    [1, 2, 3, 4, 5]   # Sample 2
+    X_dummy = np.array([ 
+    [0, 1, 2, 3, 4],  
+    [1, 2, 3, 4, 5]   
 ])
 
-# Dummy output (labels)
+
     y_dummy = np.array([0, 1])  # Dummy input and output to init model
         
     model.fit(X_dummy, y_dummy)
