@@ -7,6 +7,12 @@ import numpy as np
 
 import json
 
+
+
+# This file loads in the logistic regression model we trained ourselves, using the model_params.json
+
+# reconstruct the model here
+
 def StandardScaler(data):
     mean = np.mean(data, axis=0) 
     std = np.std(data, axis=0)
@@ -17,7 +23,7 @@ def StandardScaler(data):
 
 async def model_predict():
     await micropip.install('scikit-learn')
-    print('sklearn installed') # load in sklearn
+ # load in sklearn
     
     df = pd.read_csv('data/results.csv')
     

@@ -20,13 +20,13 @@ if __name__ == '__main__':
     begin_dt = datetime.now()
     end_dt = begin_dt + timedelta(minutes=CONST.data_log_duration) # monitoring time and log duration
 
-    FileManager.format()
-    FileManager.csv_header()
+    FileManager.format() # creates the folders to store our data and photos
+    FileManager.csv_header() # writes the headers into the csvs for data logging
 
     Speed.average_speed() #call average speed
 
     while datetime.now() < end_dt:
-        DataLogger.log()
+        DataLogger.log() 
 
         _cond = pd.read_csv(r"data/condition_data.csv")
 
@@ -38,8 +38,10 @@ if __name__ == '__main__':
 
     _cond = pd.read_csv(r"data/condition_data.csv")
 
+
+     # Plotting line charts 
     Plotter.plot_temp(_cond["temperature"])
-    Plotter.plot_all(_cond)
+    Plotter.plot_all(_cond) # magnitude
     
     
     await predictor()
