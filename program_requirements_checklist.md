@@ -1,6 +1,6 @@
 Requirements: General
 
-Your program does not rely on interaction with an astronaut. ✅✅
+Your program does not rely on interaction with an astronaut. ✅✅✅
 
 Your program is written in Python 3.11 and is named main.py, and it runs without errors when tested with the Astro Pi Replay Tool using python3 main.py. ✅✅
 

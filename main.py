@@ -9,13 +9,15 @@ from internal.file_man import FileManager
 from internal.plotter import Plotter
 from internal.CONST import CONST
 
-from feature_engineering import main as predictor
+from feature_engineering import model_predict as predictor
 
 import matplotlib
 matplotlib.use('Agg')
 
 
 """Our team BitJam, have decided to investigate solar winds using the magnetometer on the ISS"""
+
+
 
 
 
@@ -47,5 +49,5 @@ if __name__ == '__main__':
     Plotter.plot_temp(_cond["temperature"])
     Plotter.plot_all(_cond) # magnitude
     
-    
-    await predictor()
+    predictor()
+   
