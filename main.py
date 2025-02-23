@@ -15,6 +15,10 @@ import matplotlib
 matplotlib.use('Agg')
 
 
+"""Our team BitJam, have decided to investigate solar winds using the magnetometer on the ISS"""
+
+
+
 if __name__ == '__main__':
     
     begin_dt = datetime.now()

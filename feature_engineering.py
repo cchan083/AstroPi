@@ -11,6 +11,8 @@ import json
 
 # This file loads in the logistic regression model we trained ourselves, using the model_params.json
 
+# our data analysis and model training found here https://github.com/cchan083/AstroPi
+
 # reconstruct the model here
 
 def StandardScaler(data):
