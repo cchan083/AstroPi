@@ -1,9 +1,9 @@
 import os
 import time
 
-from internal.photography import Photography
-from internal.tertiary import Tertiary
-from internal.CONST import CONST
+from photography import Photography
+from tertiary import Tertiary
+from CONST import CONST
 
 # Some code taken from the 'Calculating ISS speed with photos' but made it object oriented https://projects.raspberrypi.org/en/projects/astropi-iss-speed/0
 
@@ -15,8 +15,8 @@ class Speed:
         Photography.take_picture(name=name_1, x=1920, y=1080)
         Photography.take_picture(name=name_2, x=1920, y=1080)
         
-        img1 = f'photos/{name_1}-1.jpg'
-        img2 = f'photos/{name_2}-1.jpg'
+        img1 = f'{name_1}-1.jpg'
+        img2 = f'{name_2}-1.jpg'
 
         delta = Tertiary.get_time_delta(img1, img2)
         img1_cv, img2_cv = Tertiary.convert_to_cv(img1, img2)

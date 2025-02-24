@@ -3,11 +3,11 @@ from datetime import datetime, timedelta
 
 import os
 
-from internal.speed_calc import Speed
-from internal.data_logger import DataLogger
-from internal.file_man import FileManager
-from internal.plotter import Plotter
-from internal.CONST import CONST
+from speed_calc import Speed
+from data_logger import DataLogger
+from file_man import FileManager
+from plotter import Plotter
+from CONST import CONST
 
 from feature_engineering import model_predict as predictor
 
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     begin_dt = datetime.now()
     end_dt = begin_dt + timedelta(minutes=CONST.data_log_duration) # monitoring time and log duration
 
-    FileManager.format() # creates the folders to store our data and photos
+    #FileManager.format() # creates the folders to store our data and photos
     FileManager.csv_header() # writes the headers into the csvs for data logging
 
     Speed.average_speed() #call average speed
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     while datetime.now() < end_dt:
         DataLogger.log() 
 
-        _cond = pd.read_csv(r"data/condition_data.csv")
+        _cond = pd.read_csv(r"condition_data.csv")
 
         _tw = list(_cond.iloc[-3:-1])
 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
         with open("out.txt" ,"w",buffering=1) as file:
             file.write(str(_tw))
 
-    _cond = pd.read_csv(r"data/condition_data.csv")
+    _cond = pd.read_csv(r"condition_data.csv")
 
 
      # Plotting line charts 

@@ -2,7 +2,7 @@ from sense_hat import SenseHat
 from datetime import datetime
 import time
 
-from internal.CONST import CONST
+from CONST import CONST
 
 sense = SenseHat()
 
@@ -74,10 +74,10 @@ class DataLogger:
         )
         temp_strung = stringify(condition_data.values())
 
-        with open("data/results.csv", "a") as f:
+        with open("results.csv", "a") as f:
             f.write('\n' + ','.join(strung))
 
-        with open('data/condition_data.csv', 'a') as f:
+        with open('condition_data.csv', 'a') as f:
             f.write('\n' + ','.join(temp_strung))
 
         time.sleep(

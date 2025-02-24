@@ -30,7 +30,7 @@ def model_predict():
         print('Sklearn is not there')
 
     
-    df = pd.read_csv('data/results.csv')
+    df = pd.read_csv('results.csv')
     
     df = df.drop([
         'temp',

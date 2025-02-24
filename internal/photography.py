@@ -1,5 +1,5 @@
 from picamzero import Camera  # Redundant on home machines, pre installed on the pi's
-import os
+
 
 class Photography:
     @staticmethod
@@ -14,4 +14,4 @@ class Photography:
         Photography.set_resolution(x,y)
         
         cam = Camera()
-        cam.capture_sequence(f"photos/{name}.jpg", num_images=1)
+        cam.capture_sequence(f"{name}.jpg", num_images=1)
