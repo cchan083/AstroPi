@@ -41,7 +41,7 @@ We found out how the different components of the magnitude varied,
 
 And what threshold was considered to be 'irregular'
 
-![alt text](image.png)
+![component plot](LogisticRegress/plot1.png)
 
 Then we feature engineered the magnitude - using pythagoras' theorem
 
@@ -49,7 +49,7 @@ Then we feature engineered the magnitude - using pythagoras' theorem
 
 Then we observed how the magnitude varied as well 
 
-![alt text](LogisticRegress/plot.png) 
+![magnitude plot](LogisticRegress/plot.png) 
 
 
 We then preprocessed the training and test data so that the magnitude of the dataset won't heavily affect classifcation of class 0 or 1, because different satallites have different magnetometer readings at different altitudes
@@ -75,7 +75,7 @@ ax.set_xlabel('Classes of Activity')
 ax.set_title('Imbalance of data between True and False values')
 ``` 
 
-![alt text](image-1.png)
+![alt text](LogisticRegress/imbalance.png)
 
 
 
