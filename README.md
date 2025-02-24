@@ -1,35 +1,83 @@
 # AstroPi
 In this project, our group will be trying to estimate the velocity of the ISS, using computer vision 
 
-### Dataset
+Our experiment will detect solar activity in space, using the magnetometer's readings on the sensehat 
+
+
+Folder Structure: 
+
+```internal``` contains files used to calculate the velocity of the ISS and data logging too 
+
+```LogisticRegress``` contains our jupyter notebook we used for data analysis and model training
+
+
+
+
+
+### Dataset - used for data analysis and training
 https://www.kaggle.com/datasets/arashnic/soalr-wind
 
-Improving our program:
-Use a different feature detection algorithm in OpenCV
-Choose a different number of feature matches to use
-Use more than two photos
-Check how long a photo takes to be written to disk to get a more accurate value for the time between photos
-Does the curvature of the Earth have an effect on the actual distance values travelled?
-Does the height of the identified feature also have an effect?
-Does the angle of motion (diagonally across the frame) have a impact that needs to be corrected for?
-– If your matched features are clouds, can you compensate for the fact that they may be moving too?
+
+## Velocity of the ISS
+
+For our estimate of velocity calculation, we got started with the 'Finding ISS speed with photos' guide: 
+
+https://projects.raspberrypi.org/en/projects/astropi-iss-speed/0
+
+- However, we did change the algorithm they use to detect image features, using the SIFT algorithm, not the ORB one. 
+
+    ```kp1, des1 = sift.detectAndCompute(image_1, None)``` - Taken from tertiary.py 
+
+- Also, we rendered the images as grayscale as they seemed to give more accurate results (closer to 7.66) when we tested it side by side 
+
+    ```image_1_cv = cv2.cvtColor(cv2.imread(str(image_1)), cv2.COLOR_BGR2GRAY)``` - Taken from tertiary.py 
 
 
-Think of a research question to explore: 
 
-Sensors available: 
+## Building and training a model to recognise solar activity and winds 
 
-• A passive infrared sensor (PIR) 
 
-• A colour and luminosity sensor 
+We found out how the different components of the magnitude varied,
 
-• A gyroscope, accelerometer, and magnetometer inertial measurement unit (IMU) sensor 
+And what threshold was considered to be 'irregular'
 
-• A temperature sensor 
+![alt text](image.png)
 
-• A humidity sensor 
+Then we feature engineered the magnitude - using pythagoras' theorem
 
-• A pressure sensor 
+```filtered_train_a['Magnitude'] = ((filtered_train_a['bx_gse']**2) + (filtered_train_a['by_gse'] ** 2) + (filtered_train_a['bz_gse'] ** 2)) ** 0.5``` 
+
+Then we observed how the magnitude varied as well 
+
+![alt text](LogisticRegress/plot.png) 
+
+
+We then preprocessed the training and test data so that the magnitude of the dataset won't heavily affect classifcation of class 0 or 1, because different satallites have different magnetometer readings at different altitudes
+
+Using standard scaler - ```scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)``` 
+
+
+After that, we fixed class imbalances as very high magnitudes were rare: 
+
+```from imblearn.under_sampling import RandomUnderSampler
+
+under_sampler = RandomUnderSampler(sampling_strategy=1)
+
+X_resize, y_resize = under_sampler.fit_resample(X, y)
+
+fig, ax = plt.subplots(figsize=(5,3))
+true_or_false = y_resize.value_counts().reset_index()
+ax.pie(true_or_false['count'], labels=labels, colors=['turquoise', 'orange'], autopct='%1.1f%%')
+ax.set_xlabel('Classes of Activity')
+
+ax.set_title('Imbalance of data between True and False values')
+``` 
+
+![alt text](image-1.png)
+
+
 
 
 ### Helpful links 
@@ -42,6 +90,4 @@ https://missions.astro-pi.org/msl/replay-tool
 
 https://www.esa.int/Education/AstroPI/Astro_PI_Sense_HAT_emulator
 
-# Ideas for research 
 
-Space weather visualisation, with photos

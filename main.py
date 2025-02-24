@@ -3,11 +3,11 @@ from datetime import datetime, timedelta
 
 import os
 
-from speed_calc import Speed
-from data_logger import DataLogger
-from file_man import FileManager
-from plotter import Plotter
-from CONST import CONST
+from internal.speed_calc import Speed
+from internal.data_logger import DataLogger
+from internal.file_man import FileManager
+from internal.plotter import Plotter
+from internal.CONST import CONST
 
 from feature_engineering import model_predict as predictor
 
