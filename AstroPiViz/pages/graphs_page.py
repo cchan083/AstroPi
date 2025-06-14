@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime as dt
+from pathlib import Path
 
 
 st.set_page_config(layout="wide")
@@ -12,10 +12,11 @@ graph_tab, predictions_tab= st.tabs([
         "Predictions",
     ])
 
+results_path = Path(__file__).parent.parent / "csvs" / "results.csv"
+condition_path = Path(__file__).parent.parent / "csvs" / "condition_data.csv"
 
-
-predictions = pd.read_csv("csvs/results.csv")
-condition_data = pd.read_csv("csvs/condition_data.csv")
+predictions = pd.read_csv(str(results_path))
+condition_data = pd.read_csv(str(condition_path))
 condition_data['datetime'] = condition_data['datetime'].str[11:16]
   
 

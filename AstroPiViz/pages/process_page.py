@@ -1,5 +1,5 @@
 import streamlit as st
-
+from pathlib import Path
 #CONSTANTS
 
 color = "white"
@@ -44,7 +44,9 @@ We found out how the different components of the magnitude varied,
 
 And what threshold was considered to be 'irregular'
 """)
-st.image("photos/plot.png")
+
+plot_path = Path(__file__).parent.parent / "photos" / "plot.png"
+st.image(str(plot_path))
 
 st.markdown("""Then we feature engineered the magnitude - using pythagoras' theorem
 
@@ -52,8 +54,8 @@ st.markdown("""Then we feature engineered the magnitude - using pythagoras' theo
 
 Then we observed how the magnitude varied as well
 """)
-
-st.image("photos/plot1.png")
+image_path = Path(__file__).parent.parent / "photos" / "plot1.png"
+st.image(str(image_path))
 
 st.markdown("""
 We then preprocessed the training and test data so that the magnitude of the dataset won't heavily affect classifcation of class 0 or 1, because different satallites have different magnetometer readings at different altitudes
@@ -80,7 +82,9 @@ ax.set_title('Imbalance of data between True and False values')
 ``` 
 """)
 
-st.image("photos/imbalance.png")
+
+imbalance_path = Path(__file__).parent.parent / "photos" / "imbalance.png"
+st.image(str(imbalance_path))
 
 
 
