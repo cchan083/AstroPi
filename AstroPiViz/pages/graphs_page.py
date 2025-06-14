@@ -14,8 +14,8 @@ graph_tab, predictions_tab= st.tabs([
 
 
 
-predictions = pd.read_csv("../csvs/results.csv")
-condition_data = pd.read_csv("../csvs/condition_data.csv")
+predictions = pd.read_csv("csvs/results.csv")
+condition_data = pd.read_csv("csvs/condition_data.csv")
 condition_data['datetime'] = condition_data['datetime'].str[11:16]
   
 
